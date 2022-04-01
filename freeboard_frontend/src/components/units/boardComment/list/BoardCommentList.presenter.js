@@ -1,10 +1,12 @@
 //댓글_조회_프레젠터
 import * as S from "./BoardCommentList.styles";
 import { getDate } from "../../../../commons/libraries/utils";
+import Modal from "antd";
 
 export default function BoardCommentListUI(props) {
   return (
     <>
+      <Modal></Modal>
       {props.data?.fetchBoardComments.map((el) => (
         <S.CommentFetch key={el._id}>
           <S.CommentFetchImg src="/commentImg.png" />
@@ -12,7 +14,7 @@ export default function BoardCommentListUI(props) {
             <S.CommentFetchTop>
               <S.CommentFetchTopLeft>
                 <S.CommentFetchWriter>{el.writer}</S.CommentFetchWriter>
-                <S.CommentFetchRating>별점</S.CommentFetchRating>
+                <S.CommentFetchRating value={el?.rating} disabled />
               </S.CommentFetchTopLeft>
               <S.CommentFetchTopRight>
                 <S.CommentEditButton>

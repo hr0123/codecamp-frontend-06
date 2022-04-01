@@ -11,7 +11,7 @@ export default function BoardCommentWrite() {
   const [commentWriter, setCommentWriter] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
   const [commentContents, setCommentContents] = useState("");
-  const [rating, setRating] = useState(1); //초기값1로 rating만들어주기
+  const [rating, setRating] = useState(0);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const router = useRouter();
   //댓글작성자인풋
@@ -25,6 +25,10 @@ export default function BoardCommentWrite() {
   //댓글내용인풋
   const onChangeCommentContents = (event) => {
     setCommentContents(event.target.value);
+  };
+  //댓글별점인풋
+  const onChangeRating = (value) => {
+    setRating(value);
   };
   //댓글등록버튼
   const onClickCommentPost = async () => {
@@ -49,6 +53,7 @@ export default function BoardCommentWrite() {
       setCommentWriter("");
       setCommentPassword("");
       setCommentContents("");
+      setRating("");
     } catch (error) {
       alert(error.message);
     }
@@ -59,10 +64,12 @@ export default function BoardCommentWrite() {
       onChangeCommentWriter={onChangeCommentWriter}
       onChangeCommentPassword={onChangeCommentPassword}
       onChangeCommentContents={onChangeCommentContents}
+      onChangeRating={onChangeRating}
       onClickCommentPost={onClickCommentPost}
       commentContents={commentContents}
       commentWriter={commentWriter}
       commentPassword={commentPassword}
+      rating={rating}
     />
   );
 }

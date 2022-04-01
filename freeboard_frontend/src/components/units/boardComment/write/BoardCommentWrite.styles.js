@@ -1,8 +1,10 @@
 //댓글_등록_스타일즈
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const CommentWrapper = styled.div`
   width: 1200px;
+  margin: 0px 100px;
 `;
 export const CommentPost = styled.div`
   display: flex;
@@ -53,11 +55,12 @@ export const CommentPassword = styled.input`
   margin-left: 24px;
   margin-right: 26px;
 `;
-export const Rating = styled.div`
-  width: 120px;
-  height: 52px;
-  padding-top: 10px;
-`;
+// export const Rating = styled.div`
+//   width: 120px;
+//   height: 52px;
+//   padding-top: 10px;
+// `;
+export const Rating = styled(Rate)``;
 export const CommentPostBody = styled.div`
   display: flex;
   flex-direction: column;
@@ -85,7 +88,8 @@ export const CommentPostButtonWrapper = styled.div`
   margin-bottom: 60px;
 `;
 export const ContentsLength = styled.div`
-  padding-right: 1045px;
+  width: 100px;
+  padding-right: 1082px;
   padding-left: 20px;
   font-size: 16px;
   color: #bdbdbd;

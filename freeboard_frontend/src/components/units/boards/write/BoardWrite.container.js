@@ -1,33 +1,175 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-
-import { useMutation } from "@apollo/client";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { Modal } from "antd";
 
 export default function BoardWrite(props) {
-  const [isActive, setIsActive] = useState(false);
-
-  const [updateBoard] = useMutation(UPDATE_BOARD);
-  const [createBoard] = useMutation(CREATE_BOARD);
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [isActive, setIsActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
+
+  const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [contents, setContents] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+
+  const [writerError, setWriterError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [contentsError, setContentsError] = useState("");
+
+  const onChangeWriter = (event) => {
+    setWriter(event.target.value);
+    if (event.target.value !== "") {
+      setWriterError("");
+    }
+
+    // if (event.target.value !== "" && password !== "" && title !== "" && contents !== "") {
+    if (event.target.value && password && title && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  };
+
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+    if (event.target.value !== "") {
+      setPasswordError("");
+    }
+
+    // if (writer !== "" && event.target.value !== "" && title !== "" && contents !== "") {
+    if (writer && event.target.value && title && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  };
+
+  const onChangeTitle = (event) => {
+    setTitle(event.target.value);
+    if (event.target.value !== "") {
+      setTitleError("");
+    }
+
+    // if (writer !== "" && password !== "" && event.target.value !== "" && contents !== "") {
+    if (writer && password && event.target.value && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  };
+
+  const onChangeContents = (event) => {
+    setContents(event.target.value);
+    if (event.target.value !== "") {
+      setContentsError("");
+    }
+
+    // if (writer !== "" && password !== "" && title !== "" && event.target.value !== "") {
+    if (writer && password && title && event.target.value) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  };
+
+  const onClickAddressSearch = () => {
+    setIsOpen(true);
+  };
+
+  const onCompleteAddressSearch = (data) => {
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    setIsOpen(false);
+  };
+
+  const onChangeAddressDetail = (event) => {
+    setAddressDetail(event.target.value);
+  };
+
+  const onChangeYoutubeUrl = (event) => {
+    setYoutubeUrl(event.target.value);
+  };
+
+  const onClickSubmit = async () => {
+    if (writer === "") {
+      setWriterError("작성자를 입력해주세요.");
+    }
+    if (password === "") {
+      setPasswordError("비밀번호를 입력해주세요.");
+    }
+    if (title === "") {
+      setTitleError("제목을 입력해주세요.");
+    }
+    if (contents === "") {
+      setContentsError("내용을 입력해주세요.");
+    }
+    if (writer !== "" && password !== "" && title !== "" && contents !== "") {
+      try {
+        const result = await createBoard({
+          variables: {
+            createBoardInput: {
+              writer,
+              password,
+              title,
+              contents,
+              youtubeUrl,
+              boardAddress: {
+                zipcode,
+                address,
+                addressDetail,
+              },
+            },
+          },
+        });
+        console.log(result);
+        Modal.success({ content: "게시물 등록에 성공하였습니다!" });
+        router.push(`/boards/${result.data.createBoard._id}`);
+      } catch (error) {
+        Modal.error({ content: error.message });
+      }
+    }
+  };
 
   const onClickUpdate = async () => {
-    if (!title && !content) {
+    if (
+      !title &&
+      !contents &&
+      !youtubeUrl &&
+      !address &&
+      !addressDetail &&
+      !zipcode
+    ) {
       alert("수정한 내용이 없습니다.");
       return;
     }
+
     if (!password) {
       alert("비밀번호를 입력해주세요.");
       return;
     }
+
     const updateBoardInput = {};
     if (title) updateBoardInput.title = title;
-    if (content) updateBoardInput.contents = content;
+    if (contents) updateBoardInput.contents = contents;
+    if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
+    if (zipcode || address || addressDetail) {
+      updateBoardInput.boardAddress = {};
+      if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
+      if (address) updateBoardInput.boardAddress.address = address;
+      if (addressDetail)
+        updateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
 
     try {
       await updateBoard({
@@ -37,82 +179,36 @@ export default function BoardWrite(props) {
           updateBoardInput,
         },
       });
-      alert("게시물 수정에 성공하였습니다!");
+      Modal.success({ content: "게시물 수정에 성공하였습니다!" });
       router.push(`/boards/${router.query.boardId}`);
     } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const onClickPost = async () => {
-    if (name === "" || password === "" || title === "" || content === "") {
-      alert("내용을 모두 입력해주세요.");
-    } else {
-      //상세페이지로 라우팅
-      try {
-        const result = await createBoard({
-          variables: {
-            createBoardInput: {
-              writer: name,
-              password: password,
-              title: title,
-              contents: content,
-            },
-          },
-        });
-        console.log(result);
-        console.log(result.data.createBoard._id);
-        alert("게시물 등록 성공");
-        router.push(`/boards/${result.data.createBoard._id}`);
-      } catch (error) {
-        alert(error.message);
-      }
-    }
-  };
-  const onChangeName = (event) => {
-    setName(event.target.value);
-    if (event.target.value && password && title && content) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
-    if (name && event.target.value && title && content) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-  const onChangeTitle = (event) => {
-    setTitle(event.target.value);
-    if (name && password && event.target.value && content) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-  const onChangeContent = (event) => {
-    setContent(event.target.value);
-    if (name && password && title && event.target.value) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
+      Modal.error({ content: error.message });
     }
   };
 
   return (
     <BoardWriteUI
-      onClickPost={onClickPost}
-      onChangeName={onChangeName}
-      onChangePassword={onChangePassword}
-      onChangeTitle={onChangeTitle}
-      onChangeContent={onChangeContent}
-      isActive={isActive}
-      onClickUpdate={onClickUpdate}
-      isEdit={props.isEdit}
       data={props.data}
+      isEdit={props.isEdit}
+      isActive={isActive}
+      isOpen={isOpen}
+      onChangeWriter={onChangeWriter}
+      writerError={writerError}
+      onChangePassword={onChangePassword}
+      passwordError={passwordError}
+      onChangeTitle={onChangeTitle}
+      titleError={titleError}
+      onChangeContents={onChangeContents}
+      contentsError={contentsError}
+      onClickAddressSearch={onClickAddressSearch}
+      onCompleteAddressSearch={onCompleteAddressSearch}
+      onChangeAddressDetail={onChangeAddressDetail}
+      zipcode={zipcode}
+      address={address}
+      addressDetail={addressDetail}
+      onChangeYoutubeUrl={onChangeYoutubeUrl}
+      onClickSubmit={onClickSubmit}
+      onClickUpdate={onClickUpdate}
     />
   );
 }

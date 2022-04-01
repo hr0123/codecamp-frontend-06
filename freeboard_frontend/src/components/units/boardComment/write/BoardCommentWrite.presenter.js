@@ -22,7 +22,7 @@ export default function BoardCommentWriteUI(props) {
             onChange={props.onChangeCommentPassword}
             value={props.commentPassword}
           />
-          <S.Rating>별점 입력</S.Rating>
+          <S.Rating onChange={props.onChangeRating} value={props.rating} />
         </S.CommentPostTop>
         <S.CommentPostBody>
           <S.CommentContents

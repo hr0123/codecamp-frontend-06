@@ -1,17 +1,50 @@
-//게시물_상세_컨테이너
-import BoardDetailUI from "./BoardDetail.presenter";
-import { FETCH_BOARD } from "./BoardDetail.queries";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import BoardDetailUI from "./BoardDetail.presenter";
+import { FETCH_BOARD, LIKE_BOARD, DISLIKE_BOARD } from "./BoardDetail.queries";
 
 export default function BoardDetail() {
   const router = useRouter();
-  console.log(router);
+  const [likeBoard] = useMutation(LIKE_BOARD);
+  const [dislikeBoard] = useMutation(DISLIKE_BOARD);
 
   const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId },
+    variables: { boardId: String(router.query.boardId) },
   });
-  console.log(data);
 
-  return <BoardDetailUI data={data} />;
+  const onClickMoveToBoardList = () => {
+    router.push("/boards");
+  };
+
+  const onClickMoveToBoardEdit = () => {
+    router.push(`/boards/${router.query.boardId}/edit`);
+  };
+
+  const onClickLike = () => {
+    likeBoard({
+      variables: { boardId: String(router.query.boardId) },
+      refetchQueries: [
+        { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
+      ],
+    });
+  };
+
+  const onClickDislike = () => {
+    dislikeBoard({
+      variables: { boardId: String(router.query.boardId) },
+      refetchQueries: [
+        { query: FETCH_BOARD, variables: { boardId: router.query.boardId } },
+      ],
+    });
+  };
+
+  return (
+    <BoardDetailUI
+      data={data}
+      onClickMoveToBoardList={onClickMoveToBoardList}
+      onClickMoveToBoardEdit={onClickMoveToBoardEdit}
+      onClickLike={onClickLike}
+      onClickDislike={onClickDislike}
+    />
+  );
 }

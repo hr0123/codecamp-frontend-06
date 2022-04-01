@@ -1,8 +1,10 @@
 //댓글_조회_스타일즈
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const CommentFetch = styled.div`
   width: 1200px;
+  margin: 0px 100px;
   height: 150px;
   border-bottom: 1px solid #bdbdbd;
   display: flex;
@@ -40,7 +42,7 @@ export const CommentFetchWriter = styled.div`
   margin-left: 15px;
   margin-right: 18px;
 `;
-export const CommentFetchRating = styled.div``;
+export const CommentFetchRating = styled(Rate)``;
 export const CommentFetchTopRight = styled.div`
   display: flex;
   flex-direction: row;
