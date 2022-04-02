@@ -1,5 +1,6 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../../commons/libraries/utils";
+import Paginations01 from "../../../commons/paginations/01/index";
 
 export default function BoardListUI(props) {
   return (
@@ -27,7 +28,11 @@ export default function BoardListUI(props) {
       ))}
       {/* </S.List> */}
       <S.Bottom>
-        <S.PageNumber>페이지넘버</S.PageNumber>
+        {/* <S.PageNumber>페이지</S.PageNumber> */}
+        <Paginations01
+          refetch={props.refetch}
+          dataBoardsCount={props.dataBoardsCount}
+        />
         <S.PostImage src="/list_post.png" />
         <S.PostButton>게시물 등록하기</S.PostButton>
       </S.Bottom>

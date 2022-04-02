@@ -13,6 +13,7 @@ const FETCH_BOARDS = gql`
     }
   }
 `;
+
 const FetchMore = styled.div`
   width: 2500px;
   height: 500px;
@@ -22,7 +23,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
 const List = styled.div`
   width: 25%;
 `;

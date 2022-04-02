@@ -1,4 +1,4 @@
-//댓글_조회_쿼리즈
+//댓글_조회_쿼리즈 (무한스크롤)
 import { gql } from "@apollo/client";
 
 export const FETCH_BOARD_COMMENTS = gql`
@@ -10,5 +10,10 @@ export const FETCH_BOARD_COMMENTS = gql`
       createdAt
       rating
     }
+  }
+`;
+export const DELETE_BOARD_COMMENT = gql`
+  mutation deleteBoardComment($password: String, $boardCommentId: ID!) {
+    deleteBoardComment(password: $password, boardCommentId: $boardCommentId)
   }
 `;

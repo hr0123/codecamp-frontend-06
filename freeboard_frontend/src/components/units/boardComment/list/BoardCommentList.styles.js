@@ -1,7 +1,9 @@
 //댓글_조회_스타일즈
 import styled from "@emotion/styled";
 import { Rate } from "antd";
+// import { Modal } from "antd";
 
+export const PasswordInput = styled.input``;
 export const CommentFetch = styled.div`
   width: 1200px;
   margin: 0px 100px;

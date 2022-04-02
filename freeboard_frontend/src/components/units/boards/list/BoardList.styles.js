@@ -98,16 +98,19 @@ export const ListTitle = styled.td`
   text-align: center;
 `;
 export const Bottom = styled.div`
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 40px;
+  justify-content: space-evenly;
+  padding-left: 190px;
+  padding-left: 190px;
 `;
-export const PageNumber = styled.div`
-  width: 111px;
-  margin-left: 544px;
-  margin-right: 373px;
-`;
+// export const PageNumber = styled.div`
+//   width: 111px;
+//   margin-left: 544px;
+//   margin-right: 373px;
+// `;
 export const PostButton = styled.button`
   width: 171px;
   height: 52px;
@@ -119,8 +122,9 @@ export const PostButton = styled.button`
   color: black;
   padding: 14px 9px 14px 30px;
   cursor: pointer;
+  /* margin-left: 100px; */
 `;
 export const PostImage = styled.img`
   position: relative;
-  left: 30px;
+  left: 70px;
 `;
