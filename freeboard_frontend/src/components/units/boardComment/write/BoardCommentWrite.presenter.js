@@ -1,4 +1,4 @@
-//댓글_등록_프레젠터
+//댓글등록/수정_프레젠터
 import * as S from "./BoardCommentWrite.styles";
 
 export default function BoardCommentWriteUI(props) {
@@ -35,8 +35,14 @@ export default function BoardCommentWriteUI(props) {
             <S.ContentsLength>
               {props.commentContents.length}/100
             </S.ContentsLength>
-            <S.CommentPostButton onClick={props.onClickCommentPost}>
-              등록하기
+            <S.CommentPostButton
+              onClick={
+                props.isEdit
+                  ? props.onClickCommentEdit
+                  : props.onClickCommentPost
+              }
+            >
+              {props.isEdit ? "수정" : "등록"}하기
             </S.CommentPostButton>
           </S.CommentPostButtonWrapper>
         </S.CommentPostBody>

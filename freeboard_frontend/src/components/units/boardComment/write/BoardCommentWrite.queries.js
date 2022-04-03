@@ -1,4 +1,4 @@
-//댓글_등록_쿼리즈
+//댓글등록/수정_쿼리즈
 import { gql } from "@apollo/client";
 
 export const CREATE_BOARD_COMMENT = gql`
@@ -9,6 +9,25 @@ export const CREATE_BOARD_COMMENT = gql`
     createBoardComment(
       createBoardCommentInput: $createBoardCommentInput
       boardId: $boardId
+    ) {
+      _id
+      writer
+      contents
+      rating
+    }
+  }
+`;
+
+export const UPDATE_BOARD_COMMENT = gql`
+  mutation updateBoardComment(
+    $updateBoardCommentInput: UpdateBoardCommentInput!
+    $password: String
+    $boardCommentId: ID!
+  ) {
+    updateBoardComment(
+      updateBoardCommentInput: $updateBoardCommentInput
+      password: $password
+      boardCommentId: $boardCommentId
     ) {
       _id
       writer
