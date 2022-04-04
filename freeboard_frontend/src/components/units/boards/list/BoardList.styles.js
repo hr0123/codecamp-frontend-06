@@ -96,6 +96,10 @@ export const ListDate = styled.td`
 export const ListTitle = styled.td`
   width: 60%;
   text-align: center;
+  cursor: pointer;
+  :hover {
+    color: pink;
+  }
 `;
 export const Bottom = styled.div`
   margin-top: 40px;

@@ -21,7 +21,7 @@ export default function BoardListUI(props) {
       {props.data?.fetchBoards.map((el, index) => (
         <S.ListRow key={el._id}>
           <S.ListIndex>{10 - index}</S.ListIndex>
-          <S.ListTitle>{el.title}</S.ListTitle>
+          <S.ListTitle id={el._id} onClick={props.onClickMoveToBoard}>{el.title}</S.ListTitle>
           <S.ListWriter>{el.writer}</S.ListWriter>
           <S.ListDate>{getDate(el.createdAt)}</S.ListDate>
         </S.ListRow>

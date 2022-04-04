@@ -36,5 +36,5 @@
     "husky": "4",
     "lint-staged": "^12.3.7",
     "typescript": "^4.6.3"
-  }
+  },
 }
