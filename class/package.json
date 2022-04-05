@@ -37,4 +37,14 @@
     "lint-staged": "^12.3.7",
     "typescript": "^4.6.3"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts, tsx}": [
+      "npx eslint '**/*.{ts, tsx}'"
+    ]
+  }
 }
