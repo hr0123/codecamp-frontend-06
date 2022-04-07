@@ -1,16 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Board {
+export class Board extends BaseEntity {
   @PrimaryGeneratedColumn("increment")
-  number!:number
+  number!: number;
+  // 타입스크립트의 타입
 
-  @Column({type:"text"})
-  writer!:string
+  @Column({ type: "text" })
+  writer!: string;
 
-  @Column({type:"text"})
-  title!:string
-  
-  @Column({type:"text"})
-  contents!:string
+  @Column({ type: "text" })
+  title!: string;
+
+  @Column({ type: "text" })
+  contents!: string;
 }
