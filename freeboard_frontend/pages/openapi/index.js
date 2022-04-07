@@ -11,7 +11,6 @@ export default function OpenApiMenu() {
       );
       let token = Math.floor(Math.random() * result.data.data.length);
       console.log(result.data.data[token].logos.light);
-      // const index = result.data.data.length - 1;
       setApiUrl(result.data.data[token].logos.light);
     };
     bike();
