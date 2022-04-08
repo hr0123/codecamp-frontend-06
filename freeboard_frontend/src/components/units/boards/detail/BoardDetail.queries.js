@@ -16,14 +16,15 @@ export const FETCH_BOARD = gql`
         addressDetail
       }
       createdAt
+      images
     }
   }
 `;
 export const DELETE_BOARD = gql`
-  mutation deleteBoard($boardId:ID!){
-    deleteBoard(boardId:$boardId)
+  mutation deleteBoard($boardId: ID!) {
+    deleteBoard(boardId: $boardId)
   }
-`
+`;
 export const LIKE_BOARD = gql`
   mutation likeBoard($boardId: ID!) {
     likeBoard(boardId: $boardId)

@@ -57,6 +57,17 @@ export const Title = styled.h1`
   padding-top: 80px;
 `;
 
+export const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Image = styled.img`
+  width: 996px;
+  height: 480px;
+  margin-bottom: 30px;
+`;
+
 export const Contents = styled.div`
   padding-top: 40px;
   padding-bottom: 120px;

@@ -25,6 +25,7 @@ const NAVIGATION_MENUS = [
   { name: "💌게시판", page: "/boards" },
   { name: "✒글쓰기", page: "/boards/new" },
   { name: "⚽스포츠", page: "/openapi" },
+  { name: "💬FireBase", page: "/firebase/new" },
 ];
 export default function Navigaion() {
   const router = useRouter();

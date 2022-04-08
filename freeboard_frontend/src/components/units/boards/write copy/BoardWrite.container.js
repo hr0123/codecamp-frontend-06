@@ -1,9 +1,8 @@
-// import { useEffect, useState } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import { Modal } from "antd";
 
 export default function BoardWrite(props) {
@@ -13,6 +12,11 @@ export default function BoardWrite(props) {
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+
+  const [imgUrl, setImgUrl] = useState("");
+
+  const fileRef = useRef(null);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +26,6 @@ export default function BoardWrite(props) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
-  const [fileUrls, setFileUrls] = useState(["","",""]);
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -127,7 +130,7 @@ export default function BoardWrite(props) {
                 address,
                 addressDetail,
               },
-              images: fileUrls,
+              images: [imgUrl],
             },
           },
         });
@@ -185,15 +188,22 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeFileUrls = (fileUrl, index) => {
-    const newFileUrls = [...fileUrls];
-    newFileUrls[index] = fileUrl;
-    setFileUrls(newFileUrls);
+  const onChangeFile = async (event) => {
+    const file = event.target.files?.[0];
+    try {
+      const result = await uploadFile({
+        variables: { file },
+      });
+      console.log(data);
+      setImgUrl(result.data?.uploadFile.url);
+    } catch (error) {
+      Modal.error({ content: error.message });
+    }
   };
 
-  // useEffect(()=>{
-  //   if()
-  // })
+  const onClickImgUpload = () => {
+    fileRef.current?.click();
+  };
 
   return (
     <BoardWriteUI
@@ -218,12 +228,10 @@ export default function BoardWrite(props) {
       onChangeYoutubeUrl={onChangeYoutubeUrl}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
-      // onChangeFile={onChangeFile}
-      // imgUrl={imgUrl}
-      // onClickImgUpload={onClickImgUpload}
-      // fileRef={fileRef}
-      onChangeFileUrls={onChangeFileUrls}
-      fileUrls={fileUrls}
+      onChangeFile={onChangeFile}
+      imgUrl={imgUrl}
+      onClickImgUpload={onClickImgUpload}
+      fileRef={fileRef}
     />
   );
 }

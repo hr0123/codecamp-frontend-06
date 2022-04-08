@@ -82,6 +82,18 @@ export const ListIndex = styled.td`
   text-align: center;
   font-size: 16px;
 `;
+export const ListTitle = styled.td`
+  width: 60%;
+  text-align: center;
+  cursor: pointer;
+  :hover {
+    color: pink;
+  }
+`;
+export const Word = styled.span`
+  color: ${(props) => (props.isMatched ? "purple" : "black")};
+`;
+
 export const ListWriter = styled.td`
   width: 25%;
   text-align: center;
@@ -93,14 +105,6 @@ export const ListDate = styled.td`
   font-size: 16px;
 `;
 
-export const ListTitle = styled.td`
-  width: 60%;
-  text-align: center;
-  cursor: pointer;
-  :hover {
-    color: pink;
-  }
-`;
 export const Bottom = styled.div`
   margin-top: 40px;
   display: flex;

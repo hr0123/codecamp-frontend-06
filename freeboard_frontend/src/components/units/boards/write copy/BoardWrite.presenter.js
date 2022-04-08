@@ -1,8 +1,6 @@
 import * as S from "./BoardWrite.styles";
 import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
-import { v4 as uuidv4 } from "uuid";
-import ImageUploadPage from "../../../commons/uploads/index";
 
 export default function BoardWriteUI(props) {
   return (
@@ -96,14 +94,16 @@ export default function BoardWriteUI(props) {
         </S.InputWrapper>
         <S.ImageWrapper>
           <S.Label>사진첨부</S.Label>
-          {props.fileUrls.map((el, index) => (
-            <ImageUploadPage
-              key={uuidv4()}
-              index={index}
-              fileUrl={el}
-              onChangeFileUrls={props.onChangeFileUrls}
-            />
-          ))}
+          <S.UploadButton onClick={props.onClickImgUpload}>+</S.UploadButton>
+          <input
+            style={{ display: "none" }}
+            type="file"
+            onChange={props.onChangeFile}
+            ref={props.fileRef}
+          />
+          <img src={`https://storage.googleapis.com/${props.imgUrl}`} />
+          {/* <S.UploadButton onClick={props.onClickImgUpload}>+</S.UploadButton>
+          <S.UploadButton onClick={props.onClickImgUpload}>+</S.UploadButton> */}
         </S.ImageWrapper>
         <S.OptionWrapper>
           <S.Label>메인설정</S.Label>

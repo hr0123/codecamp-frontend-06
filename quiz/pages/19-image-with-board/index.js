@@ -35,7 +35,7 @@ export default function ImageWithBoardPage() {
   const [data, setData] = useState("");
 
   const fileRef = useRef(null);
-
+  console.log("11");
   const onChangeFile = async (event) => {
     const file = event.target.files?.[0];
     console.log(file);

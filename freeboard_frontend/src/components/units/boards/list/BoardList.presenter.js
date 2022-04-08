@@ -1,13 +1,18 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../../commons/libraries/utils";
 import Paginations01 from "../../../commons/paginations/01/index";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardListUI(props) {
   return (
     <S.Wrapper>
       <S.Top>
         <S.SearchImage src="/search.png" />
-        <S.SearchBox type="text" placeholder="제목을 검색해주세요." />
+        <S.SearchBox
+          type="text"
+          onChange={props.onChangeSearch}
+          placeholder="제목을 검색해주세요."
+        />
         <S.SearchDate type="date" placeholder="YYYY.MM.DD - YYYY.MM.DD" />
         <S.SearchButton>검색하기</S.SearchButton>
       </S.Top>
@@ -21,7 +26,16 @@ export default function BoardListUI(props) {
       {props.data?.fetchBoards.map((el, index) => (
         <S.ListRow key={el._id}>
           <S.ListIndex>{10 - index}</S.ListIndex>
-          <S.ListTitle id={el._id} onClick={props.onClickMoveToBoard}>{el.title}</S.ListTitle>
+          <S.ListTitle id={el._id} onClick={props.onClickMoveToBoard}>
+            {el.title
+              .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+              .split("#$%")
+              .map((el) => (
+                <S.Word key={uuidv4()} isMatched={props.keyword === el}>
+                  {el}
+                </S.Word>
+              ))}
+          </S.ListTitle>
           <S.ListWriter>{el.writer}</S.ListWriter>
           <S.ListDate>{getDate(el.createdAt)}</S.ListDate>
         </S.ListRow>
