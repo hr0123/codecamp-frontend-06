@@ -94,9 +94,16 @@ export default function BoardWriteUI(props) {
         </S.InputWrapper>
         <S.ImageWrapper>
           <S.Label>사진첨부</S.Label>
-          <S.UploadButton>+</S.UploadButton>
-          <S.UploadButton>+</S.UploadButton>
-          <S.UploadButton>+</S.UploadButton>
+          <S.UploadButton onClick={props.onClickImgUpload}>+</S.UploadButton>
+          <input
+            style={{ display: "none" }}
+            type="file"
+            onChange={props.onChangeFile}
+            ref={props.fileRef}
+          />
+          <img src={`https://storage.googleapis.com/${props.imgUrl}`} />
+          {/* <S.UploadButton onClick={props.onClickImgUpload}>+</S.UploadButton>
+          <S.UploadButton onClick={props.onClickImgUpload}>+</S.UploadButton> */}
         </S.ImageWrapper>
         <S.OptionWrapper>
           <S.Label>메인설정</S.Label>

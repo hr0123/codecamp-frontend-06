@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import { Modal } from "antd";
 
 export default function BoardWrite(props) {
@@ -12,6 +12,11 @@ export default function BoardWrite(props) {
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+
+  const [imgUrl, setImgUrl] = useState("");
+
+  const fileRef = useRef(null);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +37,6 @@ export default function BoardWrite(props) {
     if (event.target.value !== "") {
       setWriterError("");
     }
-
     // if (event.target.value !== "" && password !== "" && title !== "" && contents !== "") {
     if (event.target.value && password && title && contents) {
       setIsActive(true);
@@ -46,7 +50,6 @@ export default function BoardWrite(props) {
     if (event.target.value !== "") {
       setPasswordError("");
     }
-
     // if (writer !== "" && event.target.value !== "" && title !== "" && contents !== "") {
     if (writer && event.target.value && title && contents) {
       setIsActive(true);
@@ -60,7 +63,6 @@ export default function BoardWrite(props) {
     if (event.target.value !== "") {
       setTitleError("");
     }
-
     // if (writer !== "" && password !== "" && event.target.value !== "" && contents !== "") {
     if (writer && password && event.target.value && contents) {
       setIsActive(true);
@@ -74,7 +76,6 @@ export default function BoardWrite(props) {
     if (event.target.value !== "") {
       setContentsError("");
     }
-
     // if (writer !== "" && password !== "" && title !== "" && event.target.value !== "") {
     if (writer && password && title && event.target.value) {
       setIsActive(true);
@@ -129,6 +130,7 @@ export default function BoardWrite(props) {
                 address,
                 addressDetail,
               },
+              images: [imgUrl],
             },
           },
         });
@@ -186,6 +188,23 @@ export default function BoardWrite(props) {
     }
   };
 
+  const onChangeFile = async (event) => {
+    const file = event.target.files?.[0];
+    try {
+      const result = await uploadFile({
+        variables: { file },
+      });
+      console.log(data);
+      setImgUrl(result.data?.uploadFile.url);
+    } catch (error) {
+      Modal.error({ content: error.message });
+    }
+  };
+
+  const onClickImgUpload = () => {
+    fileRef.current?.click();
+  };
+
   return (
     <BoardWriteUI
       data={props.data}
@@ -209,6 +228,10 @@ export default function BoardWrite(props) {
       onChangeYoutubeUrl={onChangeYoutubeUrl}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
+      onChangeFile={onChangeFile}
+      imgUrl={imgUrl}
+      onClickImgUpload={onClickImgUpload}
+      fileRef={fileRef}
     />
   );
 }
