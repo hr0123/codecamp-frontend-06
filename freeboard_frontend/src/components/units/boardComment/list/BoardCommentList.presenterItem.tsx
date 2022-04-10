@@ -7,14 +7,24 @@ import {
 } from "./BoardCommentList.queries";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Modal } from "antd";
 import { getDate } from "../../../../commons/libraries/utils";
+import {
+  IMutation,
+  IMutationDeleteBoardCommentArgs,
+} from "../../../../commons/types/generated/types";
+import { IBoardCommentListUIItemProps } from "./BoardCommentList.types";
 
-export default function BoardCommentListUIItem(props) {
+export default function BoardCommentListUIItem(
+  props: IBoardCommentListUIItemProps
+) {
   const router = useRouter();
 
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [deleteBoardComment] = useMutation<
+    Pick<IMutation, "deleteBoardComment">,
+    IMutationDeleteBoardCommentArgs
+  >(DELETE_BOARD_COMMENT);
   // [1]삭제버튼 클릭->비밀번호 입력 모달 뜸/ 삭제완료 후->끔
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   // [2]모달에 입력하는 비밀번호
@@ -29,7 +39,7 @@ export default function BoardCommentListUIItem(props) {
     if (event.target) setDeleteId(event.target.id);
   };
 
-  const onChangeDeletePassword = (event) => {
+  const onChangeDeletePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPasswordForDelete(event.target.value);
   };
 

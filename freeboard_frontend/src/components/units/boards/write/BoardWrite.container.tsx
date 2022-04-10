@@ -1,12 +1,13 @@
 // import { useEffect, useState } from "react";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { Modal } from "antd";
+import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
 
-export default function BoardWrite(props) {
+export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -22,14 +23,14 @@ export default function BoardWrite(props) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
-  const [fileUrls, setFileUrls] = useState(["","",""]);
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
-  const onChangeWriter = (event) => {
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
     if (event.target.value !== "") {
       setWriterError("");
@@ -42,7 +43,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangePassword = (event) => {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (event.target.value !== "") {
       setPasswordError("");
@@ -55,7 +56,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeTitle = (event) => {
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
     if (event.target.value !== "") {
       setTitleError("");
@@ -68,7 +69,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
     if (event.target.value !== "") {
       setContentsError("");
@@ -85,17 +86,17 @@ export default function BoardWrite(props) {
     setIsOpen(true);
   };
 
-  const onCompleteAddressSearch = (data) => {
+  const onCompleteAddressSearch = (data: any) => {
     setAddress(data.address);
     setZipcode(data.zonecode);
     setIsOpen(false);
   };
 
-  const onChangeAddressDetail = (event) => {
+  const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(event.target.value);
   };
 
-  const onChangeYoutubeUrl = (event) => {
+  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
     setYoutubeUrl(event.target.value);
   };
 
@@ -158,7 +159,7 @@ export default function BoardWrite(props) {
       return;
     }
 
-    const updateBoardInput = {};
+    const updateBoardInput: IUpdateBoardInput = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
     if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
@@ -185,7 +186,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeFileUrls = (fileUrl, index) => {
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl;
     setFileUrls(newFileUrls);

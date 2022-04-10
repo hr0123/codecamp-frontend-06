@@ -1,7 +1,8 @@
 //댓글등록/수정_프레젠터
 import * as S from "./BoardCommentWrite.styles";
+import { IBoardCommentWriteUIProps } from "./BoardCommentWrite.types";
 
-export default function BoardCommentWriteUI(props) {
+export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
   return (
     <S.CommentWrapper>
       <S.CommentPost>

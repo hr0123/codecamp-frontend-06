@@ -3,8 +3,9 @@ import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import ImageUploadPage from "../../../commons/uploads/index";
+import { IBoardWriteUIProps } from "./BoardWrite.types";
 
-export default function BoardWriteUI(props) {
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <>
       {props.isOpen && (

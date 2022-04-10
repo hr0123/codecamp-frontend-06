@@ -6,32 +6,44 @@ import {
   CREATE_BOARD_COMMENT,
   UPDATE_BOARD_COMMENT,
 } from "./BoardCommentWrite.queries";
-import { useState } from "react"; //📌ChangeEvent??
+import { ChangeEvent, useState } from "react"; //📌ChangeEvent??
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+} from "../../../../commons/types/generated/types";
+import { IBoardCommentWriteProps } from "./BoardCommentWrite.types";
 
-export default function BoardCommentWrite(props) {
+export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const [commentWriter, setCommentWriter] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
   const [commentContents, setCommentContents] = useState("");
   const [rating, setRating] = useState(0);
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, "updateBoardComment">,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
   const router = useRouter();
   //댓글작성자인풋
-  const onChangeCommentWriter = (event) => {
+  const onChangeCommentWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentWriter(event.target.value);
   };
   //댓글비밀번호인풋
-  const onChangeCommentPassword = (event) => {
+  const onChangeCommentPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentPassword(event.target.value);
   };
   //댓글내용인풋
-  const onChangeCommentContents = (event) => {
+  const onChangeCommentContents = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentContents(event.target.value);
   };
   //댓글별점인풋
-  const onChangeRating = (value) => {
+  const onChangeRating = (value: number) => {
     setRating(value);
   };
   //댓글등록버튼
@@ -57,7 +69,8 @@ export default function BoardCommentWrite(props) {
       setCommentWriter("");
       setCommentPassword("");
       setCommentContents("");
-      setRating("");
+      setRating(0);
+      // 220410타입스크립트 작성하면서 ""->0으로 수정
     } catch (error) {
       alert(error.message);
     }
@@ -75,6 +88,9 @@ export default function BoardCommentWrite(props) {
     try {
       // 수정할 댓글 없으면 수정 안함
       if (!props.el?._id) return;
+      // const updateBoardCommentInput: IUpdateBoardCommentInput = {};
+      // if (contents) updateBoardCommentInput.contents = contents;
+      // if (star !== props.el?.rating) updateBoardCommentInput.rating = star;
       await updateBoardComment({
         variables: {
           updateBoardCommentInput: {

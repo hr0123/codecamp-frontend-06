@@ -3,18 +3,32 @@ import { useQuery } from "@apollo/client";
 // import { FETCH_BOARDS } from "./BoardList.queries";
 import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import _ from "lodash";
+import {
+  IQuery,
+  IQueryFetchBoardArgs,
+  IQueryFetchBoardsCountArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardList() {
   // const { data } = useQuery(FETCH_BOARDS);
-  const { data, refetch } = useQuery(FETCH_BOARDS);
-  const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardArgs
+  >(FETCH_BOARDS);
+
+  const { data: dataBoardsCount } = useQuery<
+    Pick<IQuery, "fetchBoardsCount">,
+    IQueryFetchBoardsCountArgs
+  >(FETCH_BOARDS_COUNT);
+
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
-  const onClickMoveToBoard = (event) => {
-    router.push(`/boards/${event.target.id}`);
+  const onClickMoveToBoard = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target instanceof Element)
+      router.push(`/boards/${event.target.id}`);
   };
 
   const getDebounce = _.debounce((data) => {
