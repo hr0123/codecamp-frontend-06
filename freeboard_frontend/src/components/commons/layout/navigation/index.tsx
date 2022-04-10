@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { MouseEvent } from "react";
 
 const Wrapper = styled.div`
   height: 80px;
@@ -27,11 +28,16 @@ const NAVIGATION_MENUS = [
   { name: "⚽스포츠", page: "/openapi" },
   { name: "💬FireBase", page: "/firebase/new" },
 ];
+
+// interface INavigaion {
+//   onClickMenu = (event: MouseEvent<HTMLDivElement>) => void
+// }
+
 export default function Navigaion() {
   const router = useRouter();
 
-  const onClickMenu = (event) => {
-    router.push(event.target.id);
+  const onClickMenu = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target instanceof Element) router.push(event.target.id);
   };
 
   return (

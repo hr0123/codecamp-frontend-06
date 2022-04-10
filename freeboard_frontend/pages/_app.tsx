@@ -22,7 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
     uri: "http://backend06.codebootcamp.co.kr/graphql",
     cache: new InMemoryCache(),

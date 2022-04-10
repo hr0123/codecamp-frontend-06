@@ -1,7 +1,11 @@
 // import { useQuery, gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import { useState } from "react";
+import { ApolloQueryResult, useQuery } from "@apollo/client";
+import { MouseEvent, useState } from "react";
 import styled from "@emotion/styled";
+import {
+  IQuery,
+  IQueryFetchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 // // 1.게시글 목록조회 API
 // const FETCH_BOARDS = gql`
@@ -39,7 +43,21 @@ const NextPage = styled.span`
   font-size: 30px;
 `;
 
-export default function Paginations01(props) {
+interface IPaginations01Props {
+  dataBoardsCount?: number;
+  fetchBoardsCount: number;
+  startPage: number;
+  lastPage: number;
+  current: number;
+  refetch: (
+    variables: Partial<IQueryFetchBoardsArgs>
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
+  onClickPage: (event: MouseEvent<HTMLSpanElement>) => void;
+  onClickPrevPage: () => void;
+  onClickNextPage: () => void;
+}
+
+export default function Paginations01(props: IPaginations01Props) {
   // const { data, refetch } = useQuery(FETCH_BOARDS);
   // const { refetch } = useQuery(FETCH_BOARDS);
 
@@ -57,7 +75,8 @@ export default function Paginations01(props) {
   const [current, setCurrent] = useState(1);
 
   // 3.페이지번호 클릭한 페이지의 id로 (1)목록 리패치+(2)페이지번호 색
-  const onClickPage = (event) => {
+  const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
+    if (!(event.target instanceof Element)) return;
     props.refetch({ page: Number(event.target.id) });
     setCurrent(Number(event.target.id));
   };

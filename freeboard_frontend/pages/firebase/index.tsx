@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { firebaseApp } from "../_app";
-// import {
-//   collection,
-//   getFirestore,
-//   getDocs,
-//   DocumentData
-// } from "firebase/firestore/lite";
-import { collection, getFirestore, getDocs } from "firebase/firestore/lite";
+import {
+  collection,
+  getFirestore,
+  getDocs,
+  DocumentData
+} from "firebase/firestore/lite";
+// import { collection, getFirestore, getDocs } from "firebase/firestore/lite";
 
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FirebaseBoardFetchPage() {
-  // const [dataBoards,setDataBoards]=useState<DocumentData[]>([])
-  const [dataBoards, setDataBoards] = useState([]);
+  const [dataBoards,setDataBoards]=useState<DocumentData[]>([])
+  // const [dataBoards, setDataBoards] = useState([]);
   const router = useRouter();
 
   useEffect(() => {

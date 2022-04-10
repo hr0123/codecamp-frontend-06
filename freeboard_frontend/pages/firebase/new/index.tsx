@@ -1,17 +1,23 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { collection, getFirestore, addDoc } from "firebase/firestore/lite";
 import { firebaseApp } from "../../_app";
+
+// interface IFirebaseBoardWritePage {
+//   onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => void;
+//   onChangeContents = (event: ChangeEvent<HTMLInputElement>) => void;
+//   onClickPost = () => void
+// }
 
 export default function FirebaseBoardWritePage() {
   const [writer, setWriter] = useState("");
   const [contents, setContents] = useState("");
   const router = useRouter();
 
-  const onChangeWriter = (event) => {
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
   };
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLInputElement>) => {
     setContents(event.target.value);
   };
   const onClickPost = async () => {

@@ -3,6 +3,7 @@ import Banner from "./banner/index";
 import Navigaion from "./navigation/index";
 import Footer from "./footer/index";
 import styled from "@emotion/styled";
+import { ReactNode } from "react";
 
 const Body = styled.div`
   height: 800px;
@@ -11,7 +12,11 @@ const Body = styled.div`
   align-items: center;
 `;
 
-export default function Layout(props) {
+interface ILayoutProps {
+  children: ReactNode;
+}
+
+export default function Layout(props: ILayoutProps) {
   return (
     <>
       <Header />

@@ -1,5 +1,5 @@
 import { useMutation, gql } from "@apollo/client";
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import { Modal } from "antd";
 import styled from "@emotion/styled";
 
@@ -31,13 +31,19 @@ const UploadButton = styled.button`
 const UploadFileHidden = styled.input`
   display: none;
 `;
-
-export default function ImageUploadPage(props) {
+interface IImageUploadPageProps {
+  // onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeFileUrls: (fileUrl: string, index: number) => void;
+  index: number;
+  fileUrl: string;
+  // onClickImgUpload = () => void;
+}
+export default function ImageUploadPage(props: IImageUploadPageProps) {
   const [uploadFile] = useMutation(UPLOAD_FILE);
   // const [imgUrl, setImgUrl] = useState("");
   const fileRef = useRef(null);
 
-  const onChangeFile = async (event) => {
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || undefined;
     try {
       const result = await uploadFile({
