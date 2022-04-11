@@ -28,10 +28,10 @@ export const CheckWrapper = styled.div`
   flex-direction: row;
   align-items: center;
 `;
-export const KeepLoginCheck = styled.img`
+export const KeepLoginCheck = styled.svg`
   width: 20px;
   height: 20px;
-  color: pink;
+  fill: red;
 `;
 export const KeepLogin = styled.div`
   font-size: 16px;
@@ -46,6 +46,7 @@ export const LoginButton = styled.button`
   color: white;
   font-size: 16px;
   text-align: center;
+  cursor: pointer;
 `;
 export const BottomWrapper = styled.div`
   width: 100%;
@@ -58,4 +59,5 @@ export const BottomWrapper = styled.div`
 export const BottomButton = styled.div`
   font-size: 14px;
   color: pink;
+  cursor: pointer;
 `;

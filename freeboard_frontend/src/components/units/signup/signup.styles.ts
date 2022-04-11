@@ -40,6 +40,7 @@ export const Button = styled.button`
   font-size: 16px;
   text-align: center;
   margin-top: 20px;
+  cursor: pointer;
 `;
 // export const  = styled.div`
 // `
