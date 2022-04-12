@@ -26,11 +26,6 @@ export default function BoardList() {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
-  const onClickMoveToBoard = (event: MouseEvent<HTMLDivElement>) => {
-    if (event.target instanceof Element)
-      router.push(`/boards/${event.target.id}`);
-  };
-
   const getDebounce = _.debounce((data) => {
     // 0.2초간 재발(입력) 안할 시 실행시킬 로직
     refetch({ search: data, page: 1 });
@@ -39,6 +34,11 @@ export default function BoardList() {
 
   const onChangeSearch = (event) => {
     getDebounce(event.target.value);
+  };
+
+  const onClickMoveToBoard = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target instanceof Element)
+      router.push(`/boards/${event.currentTarget.id}`);
   };
 
   return (

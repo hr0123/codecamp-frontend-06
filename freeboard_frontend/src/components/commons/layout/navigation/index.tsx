@@ -14,11 +14,11 @@ const MenuMap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
+  width: 200px;
 `;
 const Menus = styled.div`
   cursor: pointer;
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bold;
 `;
 
@@ -27,6 +27,8 @@ const NAVIGATION_MENUS = [
   { name: "✒글쓰기", page: "/boards/new" },
   { name: "⚽스포츠", page: "/openapi" },
   { name: "💬FireBase", page: "/firebase/new" },
+  { name: "🚀Login", page: "/login" },
+  { name: "💕회원가입", page: "/signup" },
 ];
 
 // interface INavigaion {

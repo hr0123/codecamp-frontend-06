@@ -1,11 +1,12 @@
 import "../styles/globals.css";
 import "antd/dist/antd.css";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import Layout from "../src/components/commons/layout";
+import ApolloConfig from "../src/components/commons/apollo";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { AppProps } from "next/app";
+import { RecoilRoot } from "recoil";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,17 +24,14 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const client = new ApolloClient({
-    uri: "http://backend06.codebootcamp.co.kr/graphql",
-    cache: new InMemoryCache(),
-  });
-
   return (
-    <ApolloProvider client={client}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloConfig>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloConfig>
+    </RecoilRoot>
   );
 }
 

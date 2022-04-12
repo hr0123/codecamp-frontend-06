@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 
 const Wrapper = styled.div`
   height: 300px;
@@ -12,6 +13,7 @@ const Title = styled.div`
   font-weight: bold;
   color: pink;
   text-align: center;
+  cursor: pointer;
 `;
 const SliderItem1 = styled.div`
   width: 1000px;
@@ -36,9 +38,13 @@ const settings = {
 };
 
 export default function Banner() {
+  const router = useRouter();
+  const onClickMoveToLanding = () => {
+    router.push("/");
+  };
   return (
     <Wrapper>
-      <Title>💕Welcome!💕</Title>
+      <Title onClick={onClickMoveToLanding}>💕Welcome!💕</Title>
       <Slider {...settings}>
         <div>
           <SliderItem1></SliderItem1>
