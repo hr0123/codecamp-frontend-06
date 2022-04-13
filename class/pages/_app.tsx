@@ -1,16 +1,10 @@
 import "antd/dist/antd.css";
 // import "../styles/globals.css";
-import {
-  ApolloLink,
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache,
-} from "@apollo/client";
 import Layout from "../src/components/commons/layout";
 import { Global } from "@emotion/react";
 import { globalStyles } from "../src/commons/styles/globalStyles";
-import { createUploadLink } from "apollo-upload-client";
 import { RecoilRoot } from "recoil";
+import ApolloSetting from "../src/components/commons/apollo";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -32,23 +26,14 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const uploadLink = createUploadLink({
-    uri: "http://backend06.codebootcamp.co.kr/graphql",
-  });
-
-  const client = new ApolloClient({
-    link: ApolloLink.from([uploadLink]),
-    cache: new InMemoryCache(),
-  });
-
   return (
     <RecoilRoot>
-      <ApolloProvider client={client}>
+      <ApolloSetting>
         <Global styles={globalStyles} />
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ApolloProvider>
+      </ApolloSetting>
     </RecoilRoot>
   );
 }

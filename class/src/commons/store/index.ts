@@ -6,3 +6,8 @@ export const isEditState = atom({
   // 초기값
   default: false,
 });
+
+export const accessTokenState = atom({
+  key: "accessTokenState",
+  default: "",
+});
