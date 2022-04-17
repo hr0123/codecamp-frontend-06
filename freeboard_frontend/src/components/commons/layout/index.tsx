@@ -1,12 +1,15 @@
 import Header from "./header/index";
 import Banner from "./banner/index";
 import Navigaion from "./navigation/index";
-import Footer from "./footer/index";
+// import Footer from "./footer/index";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 
+// const Wrapper = styled.div`
+//   width: 100%;
+// `;
 const Body = styled.div`
-  height: 800px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +26,7 @@ export default function Layout(props: ILayoutProps) {
       <Banner />
       <Navigaion />
       <Body>{props.children}</Body>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

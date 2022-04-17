@@ -116,6 +116,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <S.ButtonWrapper>
           <S.SubmitButton
             onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
+            // 수정화면에서는 처음부터 색깔有 / 등록화면에서는 write.container의 setIsActive에따라
             isActive={props.isEdit ? true : props.isActive}
           >
             {props.isEdit ? "수정하기" : "등록하기"}

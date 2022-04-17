@@ -2,7 +2,8 @@
 import BoardWrite from "../../../../src/components/units/boards/write/BoardWrite.container";
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/router";
-//수정페이지input에 상세페이지 내용 뜨게하기위해 fetchBoard 여기서 하기
+//수정페이지input(defaultValue)에, 등록한내용을 fetchBoard로 받아와서 뜨게하기위해 fetchBoard 여기서함
+// -> 그 data를 props로 BoardWriteUI에 내려줘서 수정화면에서 defaultValue로 뜨게하기
 const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {

@@ -82,16 +82,17 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
+  // 주소1) modal->daum열기
   const onClickAddressSearch = () => {
     setIsOpen(true);
   };
-
+  // 주소2) daum에서 선택한 주소,우편번호데이터 받아와서->readonly에 띄우기
   const onCompleteAddressSearch = (data: any) => {
     setAddress(data.address);
     setZipcode(data.zonecode);
     setIsOpen(false);
   };
-
+  // 주소3) 직접 입력하는 상세주소
   const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(event.target.value);
   };
@@ -186,6 +187,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
+  // ⭐이미지 업로드
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl;

@@ -18,6 +18,7 @@ export default function BoardList() {
     IQueryFetchBoardArgs
   >(FETCH_BOARDS);
 
+  // 페이지네이션
   const { data: dataBoardsCount } = useQuery<
     Pick<IQuery, "fetchBoardsCount">,
     IQueryFetchBoardsCountArgs
@@ -26,12 +27,14 @@ export default function BoardList() {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
+  // 검색1)
   const getDebounce = _.debounce((data) => {
     // 0.2초간 재발(입력) 안할 시 실행시킬 로직
     refetch({ search: data, page: 1 });
     setKeyword(data);
   }, 200);
 
+  // 검색2)
   const onChangeSearch = (event) => {
     getDebounce(event.target.value);
   };
@@ -40,6 +43,10 @@ export default function BoardList() {
     if (event.target instanceof Element)
       router.push(`/boards/${event.currentTarget.id}`);
   };
+  // .js파일 버전(타입스크립트 뺸거)
+  // const onClickMoveToBoard = (event) => {
+  //   router.push(`/boards/${event.currentTarget.id}`);
+  // };
 
   return (
     <BoardListUI
