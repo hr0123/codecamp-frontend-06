@@ -37,6 +37,7 @@ export default function LoginPage() {
   const onChangePassword = (event) => {
     setPassword(event.target.value);
   };
+
   const onClickLogin = async () => {
     // 1.로그인 하기
     const result = await loginUser({

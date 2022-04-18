@@ -34,6 +34,7 @@ export const NameInput = styled.input`
   border: 1px solid #bdbdbd;
 `;
 export const Error = styled.div`
+  width: 100%;
   color: red;
   font-size: 16px;
 `;

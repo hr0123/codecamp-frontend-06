@@ -3,7 +3,10 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import ProductsWriteUI from "./ProductsWrite.presenter";
 import { CREATE_USED_ITEM } from "./ProductsWrite.queries";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useState } from "react";
 
 interface IFormValues {
   name: string;
@@ -24,9 +27,21 @@ const schema = yup.object({
   address: yup.string().required("주소는 필수 입력사항입니다."),
 });
 
-export default function ProductsWrite() {
+export default function ProductsWrite(props) {
   const createUsedItem = useMutation(CREATE_USED_ITEM);
   const router = useRouter();
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
+
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
+  };
 
   const onClickSubmit = async (data: IFormValues) => {
     try {
@@ -39,7 +54,7 @@ export default function ProductsWrite() {
             price: "price",
             tags: "tags",
             usedItemaddress: "address",
-            // images:
+            images: fileUrls,
           },
         },
       });
@@ -51,5 +66,19 @@ export default function ProductsWrite() {
     }
   };
 
-  return <ProductsWriteUI onClickSubmit={onClickSubmit} schema={schema} />;
+  const onClickUpdate = () => {};
+
+  return (
+    <ProductsWriteUI
+      onClickSubmit={onClickSubmit}
+      onClickUpdate={onClickUpdate}
+      register={register}
+      handleSubmit={handleSubmit}
+      formState={formState}
+      schema={schema}
+      isEdit={props.isEdit}
+      data={props.data}
+      onChangeFileUrls={onChangeFileUrls}
+    />
+  );
 }

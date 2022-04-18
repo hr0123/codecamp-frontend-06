@@ -1,12 +1,17 @@
+import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import SignupUI from "./signup.presenter";
+import { CREATE_USER } from "./signup.queries";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
+  const [createUser] = useMutation(CREATE_USER);
+  const router = useRouter();
 
   const onChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -24,7 +29,7 @@ export default function Signup() {
     setPasswordCheck(event.target.value);
   };
 
-  const onClickSignup = () => {
+  const onClickSignup = async () => {
     if (email === "" && name === "" && password === "") {
       Modal.error({ content: "내용을 입력해주세요" });
     }
@@ -43,6 +48,16 @@ export default function Signup() {
     if (password !== passwordCheck) {
       Modal.error({ content: "비밀번호가 일치하지 않습니다" });
     }
+    await createUser({
+      variables: {
+        createUserInput: {
+          email,
+          password,
+          name,
+        },
+      },
+    });
+    router.push("/login");
   };
 
   return (

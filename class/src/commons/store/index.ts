@@ -19,3 +19,9 @@ export const userInfoState = atom({
     name: "",
   },
 });
+
+// 직전에 위치했던 페이지를 계속 여기에 담아서->사용
+export const visitedPageState = atom({
+  key: "visitedPageState",
+  default: "/",
+});
