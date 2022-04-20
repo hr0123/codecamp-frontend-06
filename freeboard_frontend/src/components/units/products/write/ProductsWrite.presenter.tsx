@@ -1,6 +1,6 @@
-import ImageUploadPage from "../../../commons/uploads";
 import * as S from "./ProductsWrite.styles";
-import { v4 as uuidv4 } from "uuid";
+// import ImageUploadPage from "../../../commons/uploads";
+// import { v4 as uuidv4 } from "uuid";
 
 export default function ProductsWriteUI(props) {
   return (
@@ -47,10 +47,10 @@ export default function ProductsWriteUI(props) {
         <S.TagInput
           type="text"
           placeholder="#태그  #태그  #태그"
-          {...props.register("tags")}
-          defaultValue={props.data?.fetchUsedItem.tags || ""}
+          // {...props.register("tags")}
+          // defaultValue={props.data?.fetchUsedItem.tags || ""}
         />
-        <S.Error>{props.formState.errors.tags?.message}</S.Error>
+        {/* <S.Error>{props.formState.errors.tags?.message}</S.Error> */}
         <S.LocationWrapper>
           <S.MapWrapper>
             <S.Title>거래 위치</S.Title>
@@ -64,21 +64,23 @@ export default function ProductsWriteUI(props) {
               <S.GpsRight placeholder="경도(LNG)" />
             </S.GpsWrapper>
             <S.Title>주소</S.Title>
-            <S.AddressInput type="text" {...props.register("address")} />
-            <S.AddressInput type="text" {...props.register("address")} />
-            <S.Error>{props.formState.errors.address?.message}</S.Error>
+            {/* <S.AddressInput type="text" {...props.register("address")} />
+            <S.AddressInput type="text" {...props.register("address")} /> */}
+            <S.AddressInput type="text" />
+            <S.AddressInput type="text" />
+            {/* <S.Error>{props.formState.errors.address?.message}</S.Error> */}
           </S.AddressWrapper>
         </S.LocationWrapper>
         <S.ImageWrapper>
           <S.Title>사진 첨부</S.Title>
-          {props.fileUrls.map((el, index) => (
+          {/* {props.fileUrls.map((el, index) => (
             <ImageUploadPage
               key={uuidv4()}
               index={index}
               fileUrl={el}
               onChangeFileUrls={props.onChangeFileUrls}
             />
-          ))}
+          ))} */}
         </S.ImageWrapper>
         <S.Title>메인사진 설정</S.Title>
         <S.RadioWrapper>
