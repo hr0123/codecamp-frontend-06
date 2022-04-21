@@ -25,6 +25,7 @@ export default function BoardList() {
   >(FETCH_BOARDS_COUNT);
 
   const router = useRouter();
+
   const [keyword, setKeyword] = useState("");
 
   // 검색1)

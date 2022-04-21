@@ -9,8 +9,8 @@ const FETCH_USED_ITEM = gql`
       name
       contents
       price
-      tages
-      images
+      # tages
+      # images
       # useditemAddress
     }
   }
@@ -18,7 +18,7 @@ const FETCH_USED_ITEM = gql`
 export default function EditProductPage() {
   const router = useRouter();
   const { data } = useQuery(FETCH_USED_ITEM, {
-    variables: { productId: router.query.productId },
+    variables: { useditemId: router.query.productId },
   });
   return <ProductsWrite isEdit={true} data={data} />;
 }
