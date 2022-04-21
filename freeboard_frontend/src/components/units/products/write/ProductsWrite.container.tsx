@@ -8,6 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 // import { useState } from "react";
 
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 interface IFormValues {
   name: string;
   remarks: string;
@@ -29,19 +33,27 @@ const schema = yup.object({
 
 export default function ProductsWrite(props) {
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
-  const router = useRouter();
-  // const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
-  const { register, handleSubmit, formState } = useForm({
-    resolver: yupResolver(schema),
-    mode: "onChange",
-  });
+  const router = useRouter();
+
+  // const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   // const onChangeFileUrls = (fileUrl: string, index: number) => {
   //   const newFileUrls = [...fileUrls];
   //   newFileUrls[index] = fileUrl;
   //   setFileUrls(newFileUrls);
   // };
+
+  const { register, handleSubmit, formState, setValue, trigger } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
+
+  const onChangeContents = (value: string) => {
+    console.log(value);
+    setValue("contents", value === "<p><br></p>" ? "" : value);
+    trigger("contents");
+  };
 
   const onClickSubmit = async (data: IFormValues) => {
     try {
@@ -52,7 +64,6 @@ export default function ProductsWrite(props) {
             remarks: data.remarks,
             contents: data.contents,
             price: data.price,
-
             // tags: "tags",
             // usedItemaddress: "address",
             // images: fileUrls,
@@ -61,7 +72,7 @@ export default function ProductsWrite(props) {
       });
       console.log(result);
       Modal.success({ content: "상품이 성공적으로 등록되었습니다." });
-      router.push(`products/${result.data.createUsedItem._id}`);
+      router.push(`/products/${result.data.createUseditem._id}`);
     } catch (error) {
       Modal.error({ content: error.message });
     }
@@ -80,6 +91,8 @@ export default function ProductsWrite(props) {
       isEdit={props.isEdit}
       data={props.data}
       // onChangeFileUrls={onChangeFileUrls}
+      onChangeContents={onChangeContents}
+      ReactQuill={ReactQuill}
     />
   );
 }

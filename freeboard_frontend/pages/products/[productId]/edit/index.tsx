@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import ProductsWrite from "../../../../src/components/units/products/write/ProductsWrite.container";
 
 const FETCH_USED_ITEM = gql`
-  query fetchUsedItem($useditemId: ID!) {
-    fetchUsedItem(useditemId: $useditemId) {
+  query fetchUseditem($useditemId: ID!) {
+    fetchUseditem(useditemId: $useditemId) {
       _id
       name
       contents

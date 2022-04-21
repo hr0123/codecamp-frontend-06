@@ -16,7 +16,7 @@ export default function ProductsWriteUI(props) {
           type="text"
           placeholder="상품명을 작성해주세요."
           {...props.register("name")}
-          defaultValue={props.data?.fetchUsedItem.name || ""}
+          defaultValue={props.data?.fetchUseditem.name || ""}
         />
         <S.Error>{props.formState.errors.name?.message}</S.Error>
         <S.Title>한줄 요약</S.Title>
@@ -24,15 +24,20 @@ export default function ProductsWriteUI(props) {
           type="text"
           placeholder="상품명을 작성해주세요."
           {...props.register("remarks")}
-          defaultValue={props.data?.fetchUsedItem.remarks || ""}
+          defaultValue={props.data?.fetchUseditem.remarks || ""}
         />
         <S.Error>{props.formState.errors.remarks?.message}</S.Error>
         <S.Title>상품 설명</S.Title>
-        <S.DetailInput
+        {/* <S.DetailInput
           type="text"
           placeholder="상품을 설명해주세요."
           {...props.register("contents")}
-          defaultValue={props.data?.fetchUsedItem.contents || ""}
+          defaultValue={props.data?.fetchUseditem.contents || ""}
+        /> */}
+        <props.ReactQuill
+          onChange={props.onChangeContents}
+          placeholder="상품을 설명해주세요."
+          defaultValue={props.data?.fetchUseditem.contents || ""}
         />
         <S.Error>{props.formState.errors.contents?.message}</S.Error>
         <S.Title>판매 가격</S.Title>
@@ -40,7 +45,7 @@ export default function ProductsWriteUI(props) {
           type="text"
           placeholder="판매 가격을 입력해주세요."
           {...props.register("price")}
-          defaultValue={props.data?.fetchUsedItem.price || ""}
+          defaultValue={props.data?.fetchUseditem.price || ""}
         />
         <S.Error>{props.formState.errors.price?.message}</S.Error>
         <S.Title>태그 입력</S.Title>
@@ -48,7 +53,7 @@ export default function ProductsWriteUI(props) {
           type="text"
           placeholder="#태그  #태그  #태그"
           // {...props.register("tags")}
-          // defaultValue={props.data?.fetchUsedItem.tags || ""}
+          // defaultValue={props.data?.fetchUseditem.tags || ""}
         />
         {/* <S.Error>{props.formState.errors.tags?.message}</S.Error> */}
         <S.LocationWrapper>
