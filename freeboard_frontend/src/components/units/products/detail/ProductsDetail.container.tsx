@@ -5,7 +5,7 @@ import {
   FETCH_USED_ITEM,
   DELETE_USED_ITEM,
   CREATE_POINT_TRANSACTION_OF_LOADING,
-  CREATE_POINT_TRANSACTION_OF_BUYINGANDSELLING,
+  // CREATE_POINT_TRANSACTION_OF_BUYINGANDSELLING,
 } from "./ProductsDetail.queries";
 
 declare const window: typeof globalThis & {
@@ -19,9 +19,9 @@ export default function ProductsDetail() {
   const [createPointTransactionOfLoading] = useMutation(
     CREATE_POINT_TRANSACTION_OF_LOADING
   );
-  const [createPointTransactionOfBuyingAndSelling] = useMutation(
-    CREATE_POINT_TRANSACTION_OF_BUYINGANDSELLING
-  );
+  // const [createPointTransactionOfBuyingAndSelling] = useMutation(
+  //   CREATE_POINT_TRANSACTION_OF_BUYINGANDSELLING
+  // );
 
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.productId },

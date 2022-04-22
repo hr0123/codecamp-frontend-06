@@ -9,6 +9,7 @@ const FETCH_USED_ITEM = gql`
       name
       contents
       price
+      remarks
       # tages
       # images
       # useditemAddress

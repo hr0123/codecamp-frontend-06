@@ -21,15 +21,19 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const [commentPassword, setCommentPassword] = useState("");
   const [commentContents, setCommentContents] = useState("");
   const [rating, setRating] = useState(0);
+
   const [createBoardComment] = useMutation<
     Pick<IMutation, "createBoardComment">,
     IMutationCreateBoardCommentArgs
   >(CREATE_BOARD_COMMENT);
+
   const [updateBoardComment] = useMutation<
     Pick<IMutation, "updateBoardComment">,
     IMutationUpdateBoardCommentArgs
   >(UPDATE_BOARD_COMMENT);
+
   const router = useRouter();
+
   //댓글작성자인풋
   const onChangeCommentWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentWriter(event.target.value);

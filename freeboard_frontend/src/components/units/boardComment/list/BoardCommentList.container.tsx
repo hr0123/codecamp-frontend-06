@@ -10,6 +10,7 @@ import {
 
 export default function BoardCommentList() {
   const router = useRouter();
+
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs

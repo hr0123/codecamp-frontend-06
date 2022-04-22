@@ -28,16 +28,11 @@ export default function ProductsWriteUI(props) {
         />
         <S.Error>{props.formState.errors.remarks?.message}</S.Error>
         <S.Title>상품 설명</S.Title>
-        {/* <S.DetailInput
-          type="text"
-          placeholder="상품을 설명해주세요."
-          {...props.register("contents")}
-          defaultValue={props.data?.fetchUseditem.contents || ""}
-        /> */}
         <props.ReactQuill
           onChange={props.onChangeContents}
-          placeholder="상품을 설명해주세요."
-          defaultValue={props.data?.fetchUseditem.contents || ""}
+          // value={props.isEdit ? props.data.fetchUseditem.contents : ""}
+          // placeholder="상품을 설명해주세요."
+          defaultValue={props.data?.fetchUseditem.contents}
         />
         <S.Error>{props.formState.errors.contents?.message}</S.Error>
         <S.Title>판매 가격</S.Title>
