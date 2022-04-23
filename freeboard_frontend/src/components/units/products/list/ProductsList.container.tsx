@@ -54,6 +54,7 @@ export default function ProductList() {
     if (event.target instanceof Element)
       router.push(`/products/${event.target.id}`);
   };
+
   const loadMore = () => {
     // 1.fetchUseditems없으면, More로직 중단
     if (!data) return;
@@ -77,6 +78,10 @@ export default function ProductList() {
     });
   };
 
+  const onClickMoveToPost = () => {
+    router.push("/products/new");
+  };
+
   return (
     <ProductListUI
       data={data}
@@ -85,6 +90,7 @@ export default function ProductList() {
       loadMore={loadMore}
       basketItems={basketItems}
       onClickTodayItem={onClickTodayItem}
+      onClickMoveToPost={onClickMoveToPost}
     />
   );
 }

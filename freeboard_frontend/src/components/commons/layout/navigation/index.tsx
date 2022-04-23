@@ -25,8 +25,11 @@ const Menus = styled.div`
 const NAVIGATION_MENUS = [
   { name: "💌게시판", page: "/boards" },
   { name: "✒글쓰기", page: "/boards/new" },
+  { name: "🛒중고마켓", page: "/products" },
+  { name: "✅상품등록", page: "/products/new" },
   { name: "⚽스포츠", page: "/openapi" },
   { name: "💬FireBase", page: "/firebase/new" },
+  { name: "🌷MyPage", page: "/mypage" },
   { name: "🚀Login", page: "/login" },
   { name: "💕회원가입", page: "/signup" },
 ];

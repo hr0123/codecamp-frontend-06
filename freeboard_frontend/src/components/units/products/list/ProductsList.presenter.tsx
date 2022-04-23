@@ -40,7 +40,7 @@ export default function ProductListUI(props) {
             ))}
           </InfiniteScroll>
         </S.list>
-        <button>상품 등록하기</button>
+        <button onClick={props.onClickMoveToPost}>상품 등록하기</button>
       </S.Body>
       <S.Today>
         {props.basketItems?.map((el) => (
