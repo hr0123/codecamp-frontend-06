@@ -1,6 +1,6 @@
 import * as S from "./ProductsWrite.styles";
-// import ImageUploadPage from "../../../commons/uploads";
-// import { v4 as uuidv4 } from "uuid";
+import ImageUploadPage from "../../../commons/uploads";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ProductsWriteUI(props) {
   return (
@@ -30,9 +30,9 @@ export default function ProductsWriteUI(props) {
         <S.Title>상품 설명</S.Title>
         <props.ReactQuill
           onChange={props.onChangeContents}
-          // value={props.isEdit ? props.data.fetchUseditem.contents : ""}
-          // placeholder="상품을 설명해주세요."
+          placeholder="상품을 설명해주세요."
           defaultValue={props.data?.fetchUseditem.contents}
+          // value={props.isEdit ? props.data.fetchUseditem.contents : ""}
         />
         <S.Error>{props.formState.errors.contents?.message}</S.Error>
         <S.Title>판매 가격</S.Title>
@@ -47,8 +47,8 @@ export default function ProductsWriteUI(props) {
         <S.TagInput
           type="text"
           placeholder="#태그  #태그  #태그"
-          // {...props.register("tags")}
-          // defaultValue={props.data?.fetchUseditem.tags || ""}
+          {...props.register("tags")}
+          defaultValue={props.data?.fetchUseditem.tags || ""}
         />
         {/* <S.Error>{props.formState.errors.tags?.message}</S.Error> */}
         <S.LocationWrapper>
@@ -73,14 +73,14 @@ export default function ProductsWriteUI(props) {
         </S.LocationWrapper>
         <S.ImageWrapper>
           <S.Title>사진 첨부</S.Title>
-          {/* {props.fileUrls.map((el, index) => (
+          {props.fileUrls.map((el, index) => (
             <ImageUploadPage
               key={uuidv4()}
               index={index}
               fileUrl={el}
               onChangeFileUrls={props.onChangeFileUrls}
             />
-          ))} */}
+          ))}
         </S.ImageWrapper>
         <S.Title>메인사진 설정</S.Title>
         <S.RadioWrapper>

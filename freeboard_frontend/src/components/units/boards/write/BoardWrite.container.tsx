@@ -1,4 +1,5 @@
 // import { useEffect, useState } from "react";
+// import { ChangeEvent, useEffect, useState } from "react";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
@@ -194,9 +195,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setFileUrls(newFileUrls);
   };
 
-  // useEffect(()=>{
-  //   if()
-  // })
+  // useEffect(() => {
+  //   if (props.data?.fetchBoard.images?.length) {
+  //     setFileUrls([...props.data?.fetchBoard.images]);
+  //   }
+  // }, [props.data]);
 
   return (
     <BoardWriteUI

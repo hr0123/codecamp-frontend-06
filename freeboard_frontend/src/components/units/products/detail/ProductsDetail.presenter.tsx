@@ -10,6 +10,7 @@ export default function ProductsDetailUI(props) {
       <div>상품명: {props.data?.fetchUseditem?.name}</div>
       <div>상품요약: {props.data?.fetchUseditem?.remarks}</div>
       <div>가격: {props.data?.fetchUseditem?.price}</div>
+      <div>태그: {props.data?.fetchUseditem?.tags}</div>
       {/* <div>이미지: {props.data?.fetchUseditem.images}</div> */}
       {/* <div>상세설명: {props.data?.fetchUseditem?.contents}</div> */}
       {typeof window !== "undefined" ? (

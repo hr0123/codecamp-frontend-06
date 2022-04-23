@@ -6,7 +6,7 @@ import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./ProductsWrite.queries";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-// import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
@@ -18,7 +18,7 @@ interface IFormValues {
   remarks: string;
   contents: string;
   price: number;
-  // tags: string;
+  tags: string;
   // address: string;
   // images:string;
 }
@@ -39,13 +39,7 @@ export default function ProductsWrite(props) {
 
   const router = useRouter();
 
-  // const [fileUrls, setFileUrls] = useState(["", "", ""]);
-
-  // const onChangeFileUrls = (fileUrl: string, index: number) => {
-  //   const newFileUrls = [...fileUrls];
-  //   newFileUrls[index] = fileUrl;
-  //   setFileUrls(newFileUrls);
-  // };
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   const { register, handleSubmit, formState, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
@@ -58,6 +52,18 @@ export default function ProductsWrite(props) {
     trigger("contents");
   };
 
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
+  };
+
+  // useEffect(() => {
+  //   if (props.data?.fetchBoard.images?.length) {
+  //     setFileUrls([...props.data?.fetchBoard.images]);
+  //   }
+  // }, [props.data]);
+
   const onClickSubmit = async (data: IFormValues) => {
     try {
       const result = await createUseditem({
@@ -67,9 +73,9 @@ export default function ProductsWrite(props) {
             remarks: data.remarks,
             contents: data.contents,
             price: data.price,
-            // tags: "tags",
-            // usedItemaddress: "address",
-            // images: fileUrls,
+            tags: data.tags,
+            images: fileUrls,
+            // usedItemaddress: data.address,
           },
         },
       });
@@ -91,6 +97,7 @@ export default function ProductsWrite(props) {
     if (data.remarks) updateUseditemInput.remarks = data.remarks;
     if (data.contents) updateUseditemInput.contents = data.contents;
     if (data.price) updateUseditemInput.price = data.price;
+    updateUseditemInput.tags = data.tags;
     // if (zipcode || address || addressDetail) {
     //   updateUseditemInput.boardAddress = {};
     //   if (zipcode) updateUseditemInput.boardAddress.zipcode = zipcode;
@@ -122,9 +129,10 @@ export default function ProductsWrite(props) {
       schema={schema}
       isEdit={props.isEdit}
       data={props.data}
-      // onChangeFileUrls={onChangeFileUrls}
       onChangeContents={onChangeContents}
       ReactQuill={ReactQuill}
+      fileUrls={fileUrls}
+      onChangeFileUrls={onChangeFileUrls}
     />
   );
 }
