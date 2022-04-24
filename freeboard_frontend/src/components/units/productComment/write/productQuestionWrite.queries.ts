@@ -11,7 +11,9 @@ export const CREATE_USEDITEM_QUESTION = gql`
     ) {
       _id
       contents
-      user
+      user {
+        name
+      }
     }
   }
 `;

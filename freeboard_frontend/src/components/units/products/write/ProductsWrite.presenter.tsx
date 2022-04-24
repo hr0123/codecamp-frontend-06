@@ -1,8 +1,15 @@
 import * as S from "./ProductsWrite.styles";
 import ImageUploadPage from "../../../commons/uploads";
 import { v4 as uuidv4 } from "uuid";
+import Script from "next/script";
+import { useEffect } from "react";
 
 export default function ProductsWriteUI(props) {
+  // useEffect로 data가 들어오면 contents 값에 data에서 불러온 contents 값 넣어주기
+  useEffect(() => {
+    props.reset({ contents: props.data?.fetchUseditem.contents });
+  }, [props.data]);
+
   return (
     <form
       onSubmit={props.handleSubmit(
@@ -31,8 +38,10 @@ export default function ProductsWriteUI(props) {
         <props.ReactQuill
           onChange={props.onChangeContents}
           placeholder="상품을 설명해주세요."
-          defaultValue={props.data?.fetchUseditem.contents}
+          style={{ width: 996, height: 320 }}
+          // defaultValue={props.data?.fetchUseditem.contents}
           // value={props.isEdit ? props.data.fetchUseditem.contents : ""}
+          value={props.getValues("contents") || ""}
         />
         <S.Error>{props.formState.errors.contents?.message}</S.Error>
         <S.Title>판매 가격</S.Title>
@@ -50,25 +59,31 @@ export default function ProductsWriteUI(props) {
           {...props.register("tags")}
           defaultValue={props.data?.fetchUseditem.tags || ""}
         />
-        {/* <S.Error>{props.formState.errors.tags?.message}</S.Error> */}
+        <S.Error>{props.formState.errors.tags?.message}</S.Error>
         <S.LocationWrapper>
           <S.MapWrapper>
             <S.Title>거래 위치</S.Title>
-            <S.Map></S.Map>
+            <S.Map>
+              <Script src="" />
+              <div id="map" style={{ width: 384, height: 252 }}></div>
+            </S.Map>
           </S.MapWrapper>
           <S.AddressWrapper>
             <S.Title>GPS</S.Title>
             <S.GpsWrapper>
-              <S.GpsLeft placeholder="위도(LAT)" />
+              <S.GpsLeft placeholder="위도(LAT)">{props.lat}</S.GpsLeft>
               <S.Gps src="/Location.png" />
-              <S.GpsRight placeholder="경도(LNG)" />
+              <S.GpsRight placeholder="경도(LNG)">{props.lng}</S.GpsRight>
             </S.GpsWrapper>
+            {/* <S.Error>{props.formState.errors.gps?.message}</S.Error> */}
             <S.Title>주소</S.Title>
-            {/* <S.AddressInput type="text" {...props.register("address")} />
-            <S.AddressInput type="text" {...props.register("address")} /> */}
-            <S.AddressInput type="text" />
-            <S.AddressInput type="text" />
-            {/* <S.Error>{props.formState.errors.address?.message}</S.Error> */}
+            <S.Address>{props.address}</S.Address>
+            <S.AddressInput
+              type="text"
+              placeholder="상세주소를 입력해주세요."
+              {...props.register("addressDetail")}
+            />
+            {/* <S.Error>{props.formState.errors.addressDetail?.message}</S.Error> */}
           </S.AddressWrapper>
         </S.LocationWrapper>
         <S.ImageWrapper>

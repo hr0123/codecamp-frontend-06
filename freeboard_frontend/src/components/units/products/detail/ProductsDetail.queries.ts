@@ -9,10 +9,14 @@ export const FETCH_USED_ITEM = gql`
       contents
       price
       tags
-      # images
-      # useditemAddress
-      # seller
+      useditemAddress {
+        address
+        addressDetail
+      }
       createdAt
+      seller {
+        name
+      }
     }
   }
 `;
@@ -23,14 +27,14 @@ export const DELETE_USED_ITEM = gql`
   }
 `;
 
-export const CREATE_POINT_TRANSACTION_OF_BUYINGANDSELLING = gql`
-  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
-    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
-      _id
-      name
-      remarks
-      contents
-      price
-    }
-  }
-`;
+// export const CREATE_POINT_TRANSACTION_OF_BUYINGANDSELLING = gql`
+//   mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+//     createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+//       _id
+//       name
+//       remarks
+//       contents
+//       price
+//     }
+//   }
+// `;

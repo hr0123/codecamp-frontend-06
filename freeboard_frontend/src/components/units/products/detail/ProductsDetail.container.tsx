@@ -7,6 +7,10 @@ import {
   // CREATE_POINT_TRANSACTION_OF_BUYINGANDSELLING,
 } from "./ProductsDetail.queries";
 
+// declare const window: typeof globalThis & {
+//   kakao: any;
+// };
+
 export default function ProductsDetail() {
   const router = useRouter();
 

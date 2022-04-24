@@ -8,20 +8,6 @@ export default function ProductQuestionWriteUI(props) {
           <S.CommentHeadImg src="/comment_head.png" />
           <S.CommentHeadTitle>문의하기</S.CommentHeadTitle>
         </S.CommentHead>
-        {/* <S.CommentPostTop> */}
-        {/* <S.CommentWriter
-            type="text"
-            placeholder="작성자"
-            onChange={props.onChangeCommentWriter}
-            value={props.commentWriter}
-          /> */}
-        {/* <S.CommentPassword
-            type="password"
-            placeholder="비밀번호"
-            onChange={props.onChangeCommentPassword}
-            value={props.commentPassword}
-          /> */}
-        {/* </S.CommentPostTop> */}
         <S.CommentPostBody>
           <S.CommentContents
             type="text"

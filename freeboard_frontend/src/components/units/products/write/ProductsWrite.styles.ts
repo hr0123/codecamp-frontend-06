@@ -85,13 +85,14 @@ export const GpsWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-export const GpsLeft = styled.input`
+export const GpsLeft = styled.div`
   width: 108px;
   height: 52px;
   font-size: 16px;
   color: #4f4f4f;
   border: 1px solid #bdbdbd;
   text-align: center;
+  padding-top: 12px;
 `;
 export const Gps = styled.img`
   width: 15px;
@@ -101,19 +102,27 @@ export const Gps = styled.img`
   margin-top: 20px; */
   margin: 20px 21px 15px 21px;
 `;
-export const GpsRight = styled.input`
+export const GpsRight = styled.div`
   width: 108px;
   height: 52px;
   font-size: 16px;
   color: #4f4f4f;
   border: 1px solid #bdbdbd;
   text-align: center;
+  padding-top: 12px;
+`;
+export const Address = styled.div`
+  width: 558px;
+  height: 52px;
+  border: 1px solid #bdbdbd;
+  margin-bottom: 10px;
+  padding-left: 16px;
+  padding-top: 14px;
 `;
 export const AddressInput = styled.input`
   width: 558px;
   height: 52px;
   border: 1px solid #bdbdbd;
-  margin-bottom: 10px;
   padding-left: 16px;
 `;
 export const ImageWrapper = styled.div`

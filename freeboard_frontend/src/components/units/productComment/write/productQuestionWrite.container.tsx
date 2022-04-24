@@ -20,8 +20,8 @@ import {
 } from "../../../../commons/types/generated/types";
 
 export default function ProductQuestionWrite(props) {
-  const [questionContents, setQuestionContents] = useState("");
   const router = useRouter();
+  const [questionContents, setQuestionContents] = useState("");
 
   const [createUseditemQuestion] = useMutation<
     Pick<IMutation, "createUseditemQuestion">,
