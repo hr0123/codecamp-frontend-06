@@ -19,7 +19,7 @@ export const FETCH_USEDITEM_QUESTION_ANSWERS = gql`
 export const DELETE_USEDITEM_QUESTION_ANSWER = gql`
   mutation deleteUseditemQuestionAnswer($useditemQuestionAnswerId: ID!) {
     deleteUseditemQuestionAnswer(
-      useditemQuestionAnswerId: useditemQuestionAnswerId
+      useditemQuestionAnswerId: $useditemQuestionAnswerId
     )
   }
 `;

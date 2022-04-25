@@ -17,7 +17,14 @@ export default function ProductsDetailUI(props) {
         <Script src="" />
         <div id="map" style={{ width: 792, height: 360 }}></div>
       </div> */}
-      {/* <div>이미지: {props.data?.fetchUseditem.images}</div> */}
+      {/* <div>이미지: {props.data?.fetchUseditem?.images}</div> */}
+      <S.ImageWrapper>
+        {props.data?.fetchUseditem.images
+          ?.filter((el) => el)
+          .map((el) => (
+            <S.Image key={el} src={`https://storage.googleapis.com/${el}`} />
+          ))}
+      </S.ImageWrapper>
       {typeof window !== "undefined" ? (
         <div
           dangerouslySetInnerHTML={{

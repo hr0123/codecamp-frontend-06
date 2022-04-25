@@ -7,7 +7,12 @@ export default function ProductAnswerListUI(props) {
       <InfiniteScroll pageStart={0} loadMore={props.loadMore} hasMore={true}>
         {props.data?.fetchUseditemQuestionAnswers.map((el) => (
           // UIItem에 map함수부분 빼고, props로 el넘겨주고, import
-          <ProductAnswerListUIItem key={el._id} el={el} data={props.data} />
+          <ProductAnswerListUIItem
+            key={el._id}
+            el={el}
+            data={props.data}
+            QuestionEl={props.QuestionEl}
+          />
         )) || <div></div>}
       </InfiniteScroll>
     </>

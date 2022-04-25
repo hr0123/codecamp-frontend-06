@@ -50,6 +50,9 @@ export const CommentFetchTopRight = styled.div`
   flex-direction: row;
   align-items: center;
 `;
+export const AnswerImg = styled.img`
+  cursor: pointer;
+`;
 export const CommentEditButton = styled.button`
   background-color: white;
   border: none;

@@ -73,7 +73,7 @@ export default function ProductQuestionListUIItem(props) {
   };
 
   const onClickAnswer = () => {
-    setIsAnswer(true);
+    !isAnswer ? setIsAnswer(true) : setIsAnswer(false);
   };
 
   return (
@@ -95,7 +95,7 @@ export default function ProductQuestionListUIItem(props) {
                 </S.CommentFetchWriter>
               </S.CommentFetchTopLeft>
               <S.CommentFetchTopRight>
-                <img
+                <S.AnswerImg
                   src="/answer.png"
                   width="20px"
                   height="20px"
@@ -137,9 +137,17 @@ export default function ProductQuestionListUIItem(props) {
       )}
       {/* {isAnswer && <ProductAnswerWrite el={props.el} />} */}
       {isAnswer ? (
-        <ProductAnswerWrite el={props.el} setIsAnswer={setIsAnswer} />
+        <ProductAnswerWrite
+          isAnswer={isAnswer}
+          setIsAnswer={setIsAnswer}
+          el={props.el}
+        />
       ) : (
-        <ProductAnswerList el={props.el} />
+        <ProductAnswerList
+          isAnswer={isAnswer}
+          setIsAnswer={setIsAnswer}
+          el={props.el}
+        />
       )}
     </>
   );

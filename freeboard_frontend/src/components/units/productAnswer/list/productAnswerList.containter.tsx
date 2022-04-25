@@ -17,7 +17,7 @@ export default function ProductAnswerList(props) {
   //   variables: { useditemQuestionId: String(router.query.productId) },
   // });
   const { data, fetchMore } = useQuery(FETCH_USEDITEM_QUESTION_ANSWERS, {
-    variables: { useditemQuestionId: String(props.el._id) },
+    variables: { useditemQuestionId: props.el._id },
   });
 
   const loadMore = () => {
@@ -49,5 +49,11 @@ export default function ProductAnswerList(props) {
     });
   };
 
-  return <ProductAnswerListUI data={data} loadMore={loadMore} />;
+  return (
+    <ProductAnswerListUI
+      data={data}
+      loadMore={loadMore}
+      QuestionEl={props.el}
+    />
+  );
 }

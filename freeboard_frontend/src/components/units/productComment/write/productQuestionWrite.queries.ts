@@ -29,7 +29,9 @@ export const UPDATE_USEDITEM_QUESTION = gql`
     ) {
       _id
       contents
-      user
+      user {
+        name
+      }
     }
   }
 `;

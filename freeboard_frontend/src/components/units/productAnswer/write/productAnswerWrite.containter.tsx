@@ -29,18 +29,18 @@ export default function ProductAnswerWrite(props) {
       let result = await createUseditemQuestionAnswer({
         variables: {
           createUseditemQuestionAnswerInput: { contents: answerContents },
-          useditemQuestionId: String(props.el._id),
+          useditemQuestionId: props.el._id,
         },
         refetchQueries: [
           {
             query: FETCH_USEDITEM_QUESTION_ANSWERS,
-            variables: { useditemQuestionId: String(props.el._id) },
+            variables: { useditemQuestionId: props.el._id },
           },
         ],
       });
       console.log(result);
       setAnswerContents("");
-      props.setIsAnswer(false);
+      // props.setIsAnswer(false);
       Modal.success({ content: "답변이 성공적으로 등록되었습니다." });
     } catch (error) {
       Modal.error({ content: error.message });
@@ -52,6 +52,7 @@ export default function ProductAnswerWrite(props) {
       answerContents={answerContents}
       onChangeAnswerContents={onChangeAnswerContents}
       onClickAnswerPost={onClickAnswerPost}
+      isAnswer={props.isAnswer}
     />
   );
 }

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { IUpdateUseditemInput } from "../../../../commons/types/generated/types";
+import { useAuth } from "../../../commons/hooks/useAuth";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -38,6 +39,8 @@ const schema = yup.object({
 });
 
 export default function ProductsWrite(props) {
+  useAuth();
+
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
 

@@ -12,7 +12,12 @@ const FETCH_USED_ITEM = gql`
       remarks
       # tages
       # images
-      # useditemAddress
+      useditemAddress {
+        address
+        lat
+        lng
+        addressDetail
+      }
     }
   }
 `;

@@ -75,14 +75,15 @@ export default function ProductQuestionWrite(props) {
           updateUseditemQuestionInput: { contents: questionContents },
           useditemQuestionId: props.el?._id,
         },
-        refetchQueries: [
-          {
-            query: FETCH_USEDITEM_QUESTIONS,
-            variables: { useditemId: router.query.productId },
-          },
-        ],
+        // refetchQueries: [
+        //   {
+        //     query: FETCH_USEDITEM_QUESTIONS,
+        //     variables: { useditemId: router.query.productId },
+        //   },
+        // ],
       });
       props.setIsEdit?.(false);
+      Modal.success({ content: "질문이 성공적으로 수정되었습니다." });
     } catch (error) {
       Modal.error({ content: error.message });
     }
@@ -94,6 +95,8 @@ export default function ProductQuestionWrite(props) {
       onChangeQuestionContents={onChangeQuestionContents}
       onClickQuestionPost={onClickQuestionPost}
       onClickQuestionEdit={onClickQuestionEdit}
+      isEdit={props.isEdit}
+      el={props.el}
     />
   );
 }

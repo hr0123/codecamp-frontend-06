@@ -5,8 +5,10 @@ import { useRouter } from "next/router";
 import { MouseEvent, useEffect, useState } from "react";
 import _ from "lodash";
 import { getDate } from "../../../../commons/libraries/utils";
+import { useAuth } from "../../../commons/hooks/useAuth";
 
 export default function ProductList() {
+  useAuth();
   const router = useRouter();
 
   const { data, refetch, fetchMore } = useQuery(FETCH_USED_ITEMS);

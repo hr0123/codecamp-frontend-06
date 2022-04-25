@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
@@ -41,6 +41,7 @@ export default function ProductAnswerListUIItem(props) {
   };
 
   const onClickDelete = async () => {
+    console.log(props.QuestionEl);
     try {
       await deleteUseditemQuestionAnswer({
         variables: {
@@ -49,7 +50,9 @@ export default function ProductAnswerListUIItem(props) {
         refetchQueries: [
           {
             query: FETCH_USEDITEM_QUESTION_ANSWERS,
-            variables: { useditemQuestionId: String(router.query.productId) },
+            variables: {
+              useditemQuestionId: String(props.QuestionEl._id),
+            },
           },
         ],
       });

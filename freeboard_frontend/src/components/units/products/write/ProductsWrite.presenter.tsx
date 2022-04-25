@@ -71,17 +71,40 @@ export default function ProductsWriteUI(props) {
           <S.AddressWrapper>
             <S.Title>GPS</S.Title>
             <S.GpsWrapper>
-              <S.GpsLeft placeholder="위도(LAT)">{props.lat}</S.GpsLeft>
+              <S.GpsLeft
+                placeholder="위도(LAT)"
+                defaultValue={
+                  props.data?.fetchUseditem.useditemAddress.lat || ""
+                }
+              >
+                {props.lat}
+              </S.GpsLeft>
               <S.Gps src="/Location.png" />
-              <S.GpsRight placeholder="경도(LNG)">{props.lng}</S.GpsRight>
+              <S.GpsRight
+                placeholder="경도(LNG)"
+                defaultValue={
+                  props.data?.fetchUseditem.useditemAddress.lng || ""
+                }
+              >
+                {props.lng}
+              </S.GpsRight>
             </S.GpsWrapper>
             {/* <S.Error>{props.formState.errors.gps?.message}</S.Error> */}
             <S.Title>주소</S.Title>
-            <S.Address>{props.address}</S.Address>
+            <S.Address
+              defaultValue={
+                props.data?.fetchUseditem.useditemAddress.address || ""
+              }
+            >
+              {props.address}
+            </S.Address>
             <S.AddressInput
               type="text"
               placeholder="상세주소를 입력해주세요."
               {...props.register("addressDetail")}
+              defaultValue={
+                props.data?.fetchUseditem.useditemAddress.addressDetail || ""
+              }
             />
             {/* <S.Error>{props.formState.errors.addressDetail?.message}</S.Error> */}
           </S.AddressWrapper>

@@ -6,7 +6,9 @@ export default function ProductQuestionWriteUI(props) {
       <S.CommentPost>
         <S.CommentHead>
           <S.CommentHeadImg src="/comment_head.png" />
-          <S.CommentHeadTitle>문의하기</S.CommentHeadTitle>
+          <S.CommentHeadTitle>
+            {props.isEdit ? "수정" : "문의"}하기
+          </S.CommentHeadTitle>
         </S.CommentHead>
         <S.CommentPostBody>
           <S.CommentContents
