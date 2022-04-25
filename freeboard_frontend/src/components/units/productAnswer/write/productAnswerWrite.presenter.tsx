@@ -4,6 +4,7 @@ export default function ProductAnswerWriteUI(props) {
   return (
     <S.CommentWrapper>
       <S.CommentPost>
+        <S.Answer src="/answerArrow.png"/>
         {/* <S.CommentHead>
           <S.CommentHeadImg src="/comment_head.png" />
           <S.CommentHeadTitle>문의하기</S.CommentHeadTitle>

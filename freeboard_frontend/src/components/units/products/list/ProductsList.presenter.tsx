@@ -15,7 +15,7 @@ export default function ProductListUI(props) {
         />
         <input type="date" placeholder="YYYY.MM.DD - YYYY.MM.DD" />
         <button>검색</button>
-        <S.list>
+        <S.ListWrapper>
           <InfiniteScroll
             pageStart={0}
             loadMore={props.loadMore}
@@ -23,34 +23,37 @@ export default function ProductListUI(props) {
             useWindow={false}
           >
             {props.data?.fetchUseditems.map((el, index) => (
-              <div key={el._id}>
-                <div id={el._id} onClick={props.onClickItem(el)}>
-                  {el.name
-                    .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
-                    .split("#$%")
-                    .map((el) => (
-                      <div key={uuidv4()} isMatched={props.keyword === el}>
-                        {el}
-                      </div>
-                    ))}
-                </div>
-                <div>{el.remarks}</div>
-                <div>{el.price}</div>
-              </div>
+              <S.List key={el._id}>
+                <S.ListBody>
+                  <S.Name id={el._id} onClick={props.onClickItem(el)}>
+                    {el.name
+                      .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+                      .split("#$%")
+                      .map((el) => (
+                        <div key={uuidv4()} isMatched={props.keyword === el}>
+                          {el}
+                        </div>
+                      ))}
+                  </S.Name>
+                  <div>{el.remarks}</div>
+                </S.ListBody>
+                <S.Price>{el.price}</S.Price>
+              </S.List>
             ))}
           </InfiniteScroll>
-        </S.list>
+        </S.ListWrapper>
         <button onClick={props.onClickMoveToPost}>상품 등록하기</button>
       </S.Body>
       <S.Today>
+        <S.TodayTitle>오늘 본 상품</S.TodayTitle>
         {props.basketItems?.map((el) => (
-          <div key={el._id}>
+          <S.TodayWrapper key={el._id}>
             <div id={el._id} onClick={props.onClickTodayItem}>
               {el.name}
             </div>
             <div>{el.remarks}</div>
-            <div>{el.price}</div>
-          </div>
+            <S.TodayPrice>{el.price}</S.TodayPrice>
+          </S.TodayWrapper>
         ))}
       </S.Today>
     </S.Wrapper>

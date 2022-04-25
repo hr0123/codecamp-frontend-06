@@ -83,6 +83,7 @@ export default function ProductAnswerListUIItem(props) {
       )}
       {!isEdit && (
         <S.CommentFetch>
+          <S.Answer src="/answerArrow.png" />
           <S.CommentFetchImg src="/commentImg.png" />
           <S.CommentFetchWrapper>
             <S.CommentFetchTop>

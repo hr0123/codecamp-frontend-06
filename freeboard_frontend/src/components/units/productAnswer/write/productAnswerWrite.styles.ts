@@ -2,29 +2,37 @@ import styled from "@emotion/styled";
 import { Rate } from "antd";
 
 export const CommentWrapper = styled.div`
-  width: 1200px;
+  width: 1000px;
   margin: 0px 100px;
 `;
 export const CommentPost = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-`;
-export const CommentHead = styled.div`
+  /* width: 100%; */
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-left: 165px;
 `;
-export const CommentHeadImg = styled.img`
-  margin-right: 14px;
-  padding-top: 5px;
+export const Answer = styled.img`
+  width: 15px;
+  height: 17px;
+  margin-right: 20px;
 `;
-export const CommentHeadTitle = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  padding-top: 40px;
-  padding-bottom: 40px;
-`;
+// export const CommentHead = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+// `;
+// export const CommentHeadImg = styled.img`
+//   margin-right: 14px;
+//   padding-top: 5px;
+// `;
+// export const CommentHeadTitle = styled.div`
+//   font-size: 18px;
+//   font-weight: bold;
+//   padding-top: 40px;
+//   padding-bottom: 40px;
+// `;
 // export const CommentPostTop = styled.div`
 //   display: flex;
 //   flex-direction: row;
@@ -59,10 +67,11 @@ export const CommentPostBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: baseline;
+  /* border: 1px solid #bdbdbd; */
 `;
 export const CommentContents = styled.input`
-  width: 1200px;
-  height: 108px;
+  width: 1000px;
+  height: 90px;
   border: 1px solid #bdbdbd;
   font-size: 16px;
   color: #bdbdbd;
@@ -77,16 +86,18 @@ export const CommentPostButtonWrapper = styled.div`
   border-right: 1px solid #bdbdbd;
   border-bottom: 1px solid #bdbdbd;
   border-left: 1px solid #bdbdbd;
-  width: 1200px;
+  width: 1000px;
   height: 52px;
   margin-bottom: 60px;
 `;
 export const ContentsLength = styled.div`
   width: 100px;
-  padding-right: 1082px;
+  height: 52px;
+  padding-right: 882px;
   padding-left: 20px;
   font-size: 16px;
   color: #bdbdbd;
+  padding-top: 16px;
 `;
 export const CommentPostButton = styled.button`
   width: 96px;

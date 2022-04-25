@@ -7,6 +7,7 @@ import {
   IMutationCreateUseditemQuestionAnswerArgs,
 } from "../../../../commons/types/generated/types";
 import ProductAnswerList from "../list/productAnswerList.containter";
+import { FETCH_USEDITEM_QUESTION_ANSWERS } from "../list/productAnswerList.queries";
 import ProductAnswerWriteUI from "./productAnswerWrite.presenter";
 import { CREATE_USEDITEM_QUESTION_ANSWER } from "./productAnswerWrite.queries";
 
@@ -30,15 +31,16 @@ export default function ProductAnswerWrite(props) {
           createUseditemQuestionAnswerInput: { contents: answerContents },
           useditemQuestionId: String(props.el._id),
         },
-        // refetchQueries: [
-        //   {
-        //     query: FETCH_USEDITEM_QUESTIONS,
-        //     variables: { useditemId: router.query.productId },
-        //   },
-        // ],
+        refetchQueries: [
+          {
+            query: FETCH_USEDITEM_QUESTION_ANSWERS,
+            variables: { useditemQuestionId: String(props.el._id) },
+          },
+        ],
       });
       console.log(result);
       setAnswerContents("");
+      props.setIsAnswer(false);
       Modal.success({ content: "답변이 성공적으로 등록되었습니다." });
     } catch (error) {
       Modal.error({ content: error.message });

@@ -68,7 +68,7 @@ export default function ImageUploadPage(props: IImageUploadPageProps) {
           src={`https://storage.googleapis.com/${props.fileUrl}`}
         />
       ) : (
-        <UploadButton onClick={onClickImgUpload}>
+        <UploadButton type="button" onClick={onClickImgUpload}>
           <>+</>
           <>Upload</>
         </UploadButton>

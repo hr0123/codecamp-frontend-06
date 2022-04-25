@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import ProductAnswerWrite from "../../productAnswer/write/productAnswerWrite.containter";
+import ProductAnswerList from "../../productAnswer/list/productAnswerList.containter";
 
 export default function ProductQuestionListUIItem(props) {
   const router = useRouter();
@@ -120,6 +121,11 @@ export default function ProductQuestionListUIItem(props) {
               {getDate(props.el.createdAt)}
             </S.CommentFetchDate>
           </S.CommentFetchWrapper>
+          {/* {isAnswer ? (
+            <ProductAnswerWrite el={props.el} setIsAnswer={setIsAnswer} />
+          ) : (
+            <ProductAnswerList el={props.el} />
+          )} */}
         </S.CommentFetch>
       )}
       {isEdit && (
@@ -129,7 +135,12 @@ export default function ProductQuestionListUIItem(props) {
           el={props.el}
         />
       )}
-      {isAnswer && <ProductAnswerWrite el={props.el} />}
+      {/* {isAnswer && <ProductAnswerWrite el={props.el} />} */}
+      {isAnswer ? (
+        <ProductAnswerWrite el={props.el} setIsAnswer={setIsAnswer} />
+      ) : (
+        <ProductAnswerList el={props.el} />
+      )}
     </>
   );
 }

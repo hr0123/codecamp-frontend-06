@@ -5,22 +5,31 @@ import { Rate } from "antd";
 
 export const PasswordInput = styled.input``;
 export const CommentFetch = styled.div`
-  width: 1200px;
+  /* width: 1000px; */
   margin: 0px 100px;
-  height: 150px;
-  border-bottom: 1px solid #bdbdbd;
+  height: 90px;
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+`;
+export const Answer = styled.img`
+  width: 15px;
+  height: 17px;
+  margin-left: 100px;
+  margin-right: 20px;
 `;
 export const CommentFetchImg = styled.img`
   width: 40px;
   height: 40px;
 `;
 export const CommentFetchWrapper = styled.div`
-  width: 100%;
+  width: 1000px;
+  height: 120px;
   display: flex;
   flex-direction: column;
+  border: 1px solid #bdbdbd;
+  padding: 10px;
+  margin-left: 20px;
 `;
 export const CommentFetchTop = styled.div`
   width: 100%;
