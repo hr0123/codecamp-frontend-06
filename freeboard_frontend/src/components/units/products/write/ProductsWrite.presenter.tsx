@@ -53,13 +53,19 @@ export default function ProductsWriteUI(props) {
         />
         <S.Error>{props.formState.errors.price?.message}</S.Error>
         <S.Title>태그 입력</S.Title>
-        <S.TagInput
+        <span>
+          {props.hashArr?.map((el, idx) => (
+            <span key={idx}>{el}</span>
+          ))}
+        </span>
+        <S.TagInput type="text" onKeyUp={props.onKeyUpHash} />
+        {/* <S.TagInput
           type="text"
           placeholder="#태그  #태그  #태그"
           {...props.register("tags")}
           defaultValue={props.data?.fetchUseditem.tags || ""}
-        />
-        <S.Error>{props.formState.errors.tags?.message}</S.Error>
+        /> */}
+        {/* <S.Error>{props.formState.errors.tags?.message}</S.Error> */}
         <S.LocationWrapper>
           <S.MapWrapper>
             <S.Title>거래 위치</S.Title>

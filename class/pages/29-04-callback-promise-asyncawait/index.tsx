@@ -36,41 +36,41 @@ export default function CallbackPromiseAsyncawaitPage() {
   //   .then((res) => {}) // 성공했을때 실행
   //   .catch((err) => {}); // 실패했을때 실행
 
-  const onClickPromise = () => {
-    axios
-      .get("http://numbersapi.com/random?min=1&max=200")
-      .then((res) => {
-        return axios.get(`http://koreanjson.com/posts/${num}`);
-      })
-      .then((res) => {
-        return axios.get(`http://koreanjson.com/posts/${num}`);
-      })
-      .then((res) => {
-        console.log("최종 결과!!!");
-      });
-  };
-
-  // Promise의 문제 : 콘솔로그가 1->5->2->3->4 순서로 실행됨
   // const onClickPromise = () => {
-  //   console.log("여기는 1번 입니다!!!");
   //   axios
   //     .get("http://numbersapi.com/random?min=1&max=200")
   //     .then((res) => {
-  //       console.log("여기는 2번 입니다!!!");
-  //       const num = res.data.split(" ")[0]; // 71(랜덤숫자)
   //       return axios.get(`http://koreanjson.com/posts/${num}`);
   //     })
   //     .then((res) => {
-  //       console.log("여기는 3번 입니다!!!");
-  //       const userId = res.data.UserId;
-  //       return axios.get(`http://koreanjson.com/posts?userId=${userId}`);
+  //       return axios.get(`http://koreanjson.com/posts/${num}`);
   //     })
   //     .then((res) => {
-  //       console.log("여기는 4번 입니다!!!");
-  //       console.log(res);
+  //       console.log("최종 결과!!!");
   //     });
-  //   console.log("여기는 5번 입니다!!!");
   // };
+
+  // Promise의 문제 : 콘솔로그가 1->5->2->3->4 순서로 실행됨
+  const onClickPromise = () => {
+    console.log("여기는 1번 입니다!!!");
+    axios
+      .get("http://numbersapi.com/random?min=1&max=200")
+      .then((res) => {
+        console.log("여기는 2번 입니다!!!");
+        const num = res.data.split(" ")[0]; // 71(랜덤숫자)
+        return axios.get(`http://koreanjson.com/posts/${num}`);
+      })
+      .then((res) => {
+        console.log("여기는 3번 입니다!!!");
+        const userId = res.data.UserId;
+        return axios.get(`http://koreanjson.com/posts?userId=${userId}`);
+      })
+      .then((res) => {
+        console.log("여기는 4번 입니다!!!");
+        console.log(res);
+      });
+    console.log("여기는 5번 입니다!!!");
+  };
 
   // 위에서 아래로 로직작성 순서대로 화면에서 실행됨(Promise문제 해결)
   const onClickAsyncawait = async () => {

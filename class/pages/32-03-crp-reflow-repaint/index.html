@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>리플로우/리페인트</title>
+    <style>
+      .reflow {
+        width: 100px;
+        height: 100px;
+        background-color: skyblue;
+      }
+      .reflow:hover {
+        /* 마우스 올렸을때 */
+        width: 110px;
+        height: 110px;
+      }
+      .repaint {
+        width: 100px;
+        height: 100px;
+        background-color: yellow;
+      }
+      .repaint:hover {
+        /* 마우스 올렸을때 */
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reflow">리플로우 연습!</div>
+    <div class="repaint">리페인트 연습!</div>
+  </body>
+</html>

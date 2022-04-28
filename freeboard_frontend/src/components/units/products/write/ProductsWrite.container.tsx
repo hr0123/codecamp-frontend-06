@@ -11,6 +11,7 @@ import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import { IUpdateUseditemInput } from "../../../../commons/types/generated/types";
 import { useAuth } from "../../../commons/hooks/useAuth";
+import ProductsDetailUI from "../detail/ProductsDetail.presenter";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -34,7 +35,7 @@ const schema = yup.object({
   remarks: yup.string().required("한줄 요약은 필수 입력사항입니다."),
   contents: yup.string().required("상품 설명은 필수 입력사항입니다."),
   price: yup.number().integer().required("판매 가격은 필수 입력사항입니다."),
-  tags: yup.string().required("태그는 필수 입력사항입니다."),
+  // tags: yup.string().required("태그는 필수 입력사항입니다."),
   // gps: yup.string().required("거래위치는 필수 입력사항입니다."),
 });
 
@@ -50,6 +51,16 @@ export default function ProductsWrite(props) {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [address, setAddress] = useState("");
+
+  const [hashtag, setHashtag] = useState("");
+  const [hashArr, setHashArr] = useState([]);
+  const onKeyUpHash = (event) => {
+    if (event.keyCode === 32 && event.target.value !== " ") {
+      setHashArr([...hashArr, "#" + event.target.value]);
+      event.target.value = "";
+    }
+  };
+  // keyCode 구글링해봐
 
   // const { register, handleSubmit, formState, setValue, trigger } = useForm({
   //   resolver: yupResolver(schema),
@@ -178,7 +189,8 @@ export default function ProductsWrite(props) {
             remarks: data.remarks,
             contents: data.contents,
             price: data.price,
-            tags: data.tags,
+            tags: hashArr,
+            // tags: data.tags,
             useditemAddress: {
               address: address,
               addressDetail: data.addressDetail,
@@ -249,6 +261,8 @@ export default function ProductsWrite(props) {
       address={address}
       getValues={getValues}
       reset={reset}
+      hashArr={hashArr}
+      onKeyUpHash={onKeyUpHash}
     />
   );
 }

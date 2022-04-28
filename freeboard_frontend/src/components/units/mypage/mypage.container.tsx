@@ -7,7 +7,8 @@ import { useAuth } from "../../commons/hooks/useAuth";
 import MypageUI from "./mypage.presenter";
 import {
   CREATE_POINT_TRANSACTION_OF_LOADING,
-  FETCH_POINT_TRANSACTIONS_OF_LOADING,
+  // FETCH_POINT_TRANSACTIONS_OF_LOADING,
+  FETCH_USER_LOGGEDIN,
 } from "./mypage.queries";
 
 declare const window: typeof globalThis & {
@@ -38,7 +39,7 @@ function Mypage() {
         pg: "html5_inicis",
         pay_method: "card", //가상계좌 결제면 vbank
         // merchant_uid: "ORD20180131-0000011",  //주석하면 알고리즘에의해 랜덤으로 생성됨
-        // name: data?.fetchUseditem?.name,
+        name: "포인트 충전",
         amount: amount,
         // buyer_email: "gildong@gmail.com",
         // buyer_name: "홍길동",
@@ -53,9 +54,15 @@ function Mypage() {
         if (rsp.success) {
           // 결제 성공 시 로직
           console.log(rsp);
+          console.log(rsp.imp_uid);
           // 백엔드에 결제관련 데이터 넘겨주기(즉,mutation실행_ex.createPointTransactionOfLoading)
           await createPointTransactionOfLoading({
             variables: { impUid: rsp.imp_uid },
+            refetchQueries: [
+              {
+                query: FETCH_USER_LOGGEDIN,
+              },
+            ],
           });
           // console.log(rsp.imp_uid);
           // console.log(result);
@@ -68,7 +75,8 @@ function Mypage() {
     );
   };
 
-  const { data } = useQuery(FETCH_POINT_TRANSACTIONS_OF_LOADING);
+  // const { data } = useQuery(FETCH_POINT_TRANSACTIONS_OF_LOADING);
+  const { data } = useQuery(FETCH_USER_LOGGEDIN);
 
   return (
     <MypageUI

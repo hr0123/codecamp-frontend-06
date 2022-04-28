@@ -6,8 +6,8 @@ export const ImageWrapper = styled.div`
   flex-direction: column;
 `;
 export const Image = styled.img`
-  width: 996px;
-  height: 480px;
+  width: 600px;
+  height: 470px;
   margin-bottom: 30px;
 `;
 // export const Wrapper = styled.div``;

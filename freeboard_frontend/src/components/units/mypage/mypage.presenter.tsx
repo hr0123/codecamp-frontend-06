@@ -1,5 +1,6 @@
 import * as S from "./mypage.styles";
 import Head from "next/head";
+import { getDate } from "../../../commons/libraries/utils";
 
 export default function MypageUI(props) {
   return (
@@ -29,13 +30,19 @@ export default function MypageUI(props) {
           />
           <button onClick={props.onClickCreatePoint}>포인트 충전</button>
           <div>
-            충전완료 포인트:
-            {props.data?.fetchPointTransactionsOfLoading.amount}
+            {/* 충전완료 포인트: */}
+            {/* {props.data?.fetchPointTransactionsOfLoading.amount} */}
+            현재 포인트:
+            {props.data?.fetchUserLoggedIn.userPoint.amount}
           </div>
           <div>
-            충전한 날: {props.data?.fetchPointTransactionsOfLoading.createdAt}
+            기준일시:
+            {/* {props.data?.fetchPointTransactionsOfLoading.createdAt} */}
+            {/* {props.data?.fetchUserLoggedIn.userPoint.createdAt} */}
+            {props.data?.fetchUserLoggedIn.userPoint.updatedAt}
+            {/* ↑안됨 */}
           </div>
-          <div>현재 남은 포인트: </div>
+          {/* <div>현재 남은 포인트: </div> */}
         </S.Point>
       </S.Left>
       <S.Right></S.Right>

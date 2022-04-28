@@ -24,6 +24,10 @@ export default function ProductListUI(props) {
           >
             {props.data?.fetchUseditems.map((el, index) => (
               <S.List key={el._id}>
+                <img
+                  // key={el.images}
+                  src={`https://storage.googleapis.com/${el.images}`}
+                />
                 <S.ListBody>
                   <S.Name id={el._id} onClick={props.onClickItem(el)}>
                     {el.name
