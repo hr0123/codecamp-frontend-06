@@ -6,46 +6,73 @@ import Script from "next/script";
 
 export default function ProductsDetailUI(props) {
   return (
-    <S.Wrapper>
-      <div onClick={props.onClickPick}>
-        {/* 찜하기:{props.pickData?.fetchUseditemsCountIPicked} */}
-        찜하기:{props.data?.fetchUseditem?.pickedCount}
-      </div>
-      <div>판매자: {props.data?.fetchUseditem?.seller?.name}</div>
-      <div>작성일자: {getDate(props.data?.fetchUseditem?.createdAt)}</div>
-      <div>상품명: {props.data?.fetchUseditem?.name}</div>
-      <div>상품요약: {props.data?.fetchUseditem?.remarks}</div>
-      <div>가격: {props.data?.fetchUseditem?.price}</div>
-      <div>태그: {props.data?.fetchUseditem?.tags}</div>
-      <S.ImageWrapper>
-        {props.data?.fetchUseditem.images
-          ?.filter((el) => el)
-          .map((el) => (
-            <S.Image key={el} src={`https://storage.googleapis.com/${el}`} />
-          ))}
-      </S.ImageWrapper>
-      <Script src="" />
-      <div id="map" style={{ width: 384, height: 252 }}></div>
-      {typeof window !== "undefined" ? (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(props.data?.fetchUseditem.contents),
-          }}
-        ></div>
-      ) : (
-        <div></div>
-      )}
-      <div>주소: {props.data?.fetchUseditem?.useditemAddress?.address}</div>
-      <div>
-        상세주소: {props.data?.fetchUseditem?.useditemAddress?.addressDetail}
-      </div>
-      {/* <div>{props.data?.fetchUseditem?.useditemAddress?.lat}</div>
+    <S.Page>
+      <S.TopWrapper>
+        <S.ImageWrapper>
+          {props.data?.fetchUseditem.images
+            ?.filter((el) => el)
+            .map((el) => (
+              <S.Image key={el} src={`https://storage.googleapis.com/${el}`} />
+            ))}
+        </S.ImageWrapper>
+        <S.TopRight>
+          <S.NamePriceWrapper>
+            <S.Top>
+              <S.Name>{props.data?.fetchUseditem?.name}</S.Name>
+              <S.Edit src="/edit.png" onClick={props.onClickMoveToEdit} />
+              <S.Delete src="/delete.png" onClick={props.onClickDelete} />
+            </S.Top>
+            <S.Price>{props.data?.fetchUseditem?.price}원</S.Price>
+          </S.NamePriceWrapper>
+          <S.RemarkTagWrapper>
+            <div>{getDate(props.data?.fetchUseditem?.createdAt)}</div>
+            <S.Remarks>{props.data?.fetchUseditem?.remarks}</S.Remarks>
+            <S.Tags>{props.data?.fetchUseditem?.tags}</S.Tags>
+          </S.RemarkTagWrapper>
+          <S.ButtonWrapper>
+            <S.Pick onClick={props.onClickPick}>
+              찜 {props.data?.fetchUseditem?.pickedCount}
+            </S.Pick>
+            <S.Buy onClick={props.onClickBuy}>구매하기</S.Buy>
+            <S.MovetoList onClick={props.onClickMoveToList}>목록</S.MovetoList>
+          </S.ButtonWrapper>
+        </S.TopRight>
+      </S.TopWrapper>
+      <S.Body>
+        <S.BodyLeft>
+          <S.BodyTitle>상품 정보</S.BodyTitle>
+          {typeof window !== "undefined" ? (
+            <S.Contents
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(props.data?.fetchUseditem.contents),
+              }}
+            ></S.Contents>
+          ) : (
+            <S.Contents></S.Contents>
+          )}
+          <S.MapTitleWrapper>
+            <img src="/position.png" style={{ width: 23, height: 30 }} />
+            <S.MapTitle>거래지역</S.MapTitle>
+          </S.MapTitleWrapper>
+          <Script src="" />
+          <S.Map id="map" style={{ width: 700, height: 380 }}></S.Map>
+          <S.Address>
+            {props.data?.fetchUseditem?.useditemAddress?.address}
+          </S.Address>
+          <S.AddressDetail>
+            {props.data?.fetchUseditem?.useditemAddress?.addressDetail}
+          </S.AddressDetail>
+          {/* <div>{props.data?.fetchUseditem?.useditemAddress?.lat}</div>
       <div>{props.data?.fetchUseditem?.useditemAddress?.lng}</div> */}
-      <button onClick={props.onClickMoveToEdit}>수정하기</button>
-      <button onClick={props.onClickDelete}>삭제하기</button>
-      <button>찜하기</button>
-      <button onClick={props.onClickBuy}>구매하기</button>
-      <button onClick={props.onClickMoveToList}>목록으로</button>
-    </S.Wrapper>
+        </S.BodyLeft>
+        <S.BodyRight>
+          <S.BodyTitle>판매자 정보</S.BodyTitle>
+          <S.UserWrapper>
+            <img src="/detailUser.png" style={{ width: 75, height: 75 }} />
+            <S.User>{props.data?.fetchUseditem?.seller?.name}</S.User>
+          </S.UserWrapper>
+        </S.BodyRight>
+      </S.Body>
+    </S.Page>
   );
 }
