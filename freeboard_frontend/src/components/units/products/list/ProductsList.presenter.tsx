@@ -26,12 +26,22 @@ export default function ProductListUI(props) {
           >
             {props.data?.fetchUseditems.map((el, index) => (
               <S.List key={el._id}>
-                <img
-                  // key={el.images}
-                  src={`https://storage.googleapis.com/${el.images}`}
-                  style={{ width: 160, height: 160, cursor: "pointer" }}
-                  onClick={props.onClickItem(el)}
-                />
+                {el.images[0] ? (
+                  <img
+                    // key={el.images}
+                    id={el._id}
+                    src={`https://storage.googleapis.com/${el.images[0]}`}
+                    style={{ width: 160, height: 160, cursor: "pointer" }}
+                    onClick={props.onClickItem(el)}
+                  />
+                ) : (
+                  <img
+                    id={el._id}
+                    src="/noimg.png"
+                    style={{ width: 160, height: 160, cursor: "pointer" }}
+                    onClick={props.onClickItem(el)}
+                  />
+                )}
                 <S.ListBody>
                   <S.Name id={el._id} onClick={props.onClickItem(el)}>
                     {el.name
@@ -77,13 +87,23 @@ export default function ProductListUI(props) {
               <img src="/pick.png" style={{ width: 15, height: 13.76 }} />
               <S.TodayPick>{el.pickedCount}</S.TodayPick>
             </S.TodayPickWrapper>
-            <S.TodayImage
-              // key={el.images}
-              src={`https://storage.googleapis.com/${el.images}`}
-              style={{ width: 60, height: 60, cursor: "pointer" }}
-              id={el._id}
-              onClick={props.onClickTodayItem}
-            />
+            {el.images[0] ? (
+              <S.TodayImage
+                // key={el.images}
+                src={`https://storage.googleapis.com/${el.images[0]}`}
+                style={{ width: 60, height: 60, cursor: "pointer" }}
+                id={el._id}
+                onClick={props.onClickTodayItem}
+              />
+            ) : (
+              <S.TodayImage
+                // key={el.images}
+                src="/noimg.png"
+                style={{ width: 60, height: 60, cursor: "pointer" }}
+                id={el._id}
+                onClick={props.onClickTodayItem}
+              />
+            )}
             <S.TodayName id={el._id} onClick={props.onClickTodayItem}>
               {el.name}
             </S.TodayName>

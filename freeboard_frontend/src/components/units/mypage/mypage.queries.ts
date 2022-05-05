@@ -9,7 +9,6 @@ export const CREATE_POINT_TRANSACTION_OF_LOADING = gql`
     }
   }
 `;
-
 // export const FETCH_POINT_TRANSACTIONS_OF_LOADING = gql`
 //   query fetchPointTransactionsOfLoading($search: String, $page: Int) {
 //     fetchPointTransactionsOfLoading(search: $search, page: $page) {
@@ -21,7 +20,6 @@ export const CREATE_POINT_TRANSACTION_OF_LOADING = gql`
 //     }
 //   }
 // `;
-
 export const FETCH_USER_LOGGEDIN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
@@ -30,6 +28,22 @@ export const FETCH_USER_LOGGEDIN = gql`
         # createdAt
         updatedAt
       }
+    }
+  }
+`;
+export const FETCH_USED_ITEMS_I_PICKED = gql`
+  query fetchUseditemsIPicked($search: String, $page: Int) {
+    fetchUseditemsIPicked(search: $search, page: $page) {
+      _id
+      name
+      remarks
+      price
+      images
+      pickedCount
+      seller {
+        name
+      }
+      soldAt
     }
   }
 `;

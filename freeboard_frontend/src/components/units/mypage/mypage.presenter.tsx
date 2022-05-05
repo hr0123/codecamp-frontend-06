@@ -1,6 +1,7 @@
 import * as S from "./mypage.styles";
 import Head from "next/head";
 import { getDate } from "../../../commons/libraries/utils";
+import InfiniteScroll from "react-infinite-scroller";
 
 export default function MypageUI(props) {
   return (
@@ -45,7 +46,64 @@ export default function MypageUI(props) {
           {/* <div>현재 남은 포인트: </div> */}
         </S.Point>
       </S.Left>
-      <S.Right></S.Right>
+      <S.Right>
+        <S.PickListTitle>찜한 상품</S.PickListTitle>
+        <S.ListWrapper>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.loadMore}
+            hasMore={true}
+            useWindow={false}
+          >
+            {props.pickedData?.fetchUseditemsIPicked.map((el, index) => (
+              <S.List key={el._id}>
+                {el.images[0] ? (
+                  <img
+                    // key={el.images}
+                    src={`https://storage.googleapis.com/${el.images[0]}`}
+                    style={{ width: 160, height: 160, cursor: "pointer" }}
+                    onClick={props.onClickItem}
+                  />
+                ) : (
+                  <img
+                    src="/noimg.png"
+                    style={{ width: 160, height: 160, cursor: "pointer" }}
+                    onClick={props.onClickItem}
+                  />
+                )}
+                <S.ListBody>
+                  <S.Name id={el._id} onClick={props.onClickItem}>
+                    {/* {el.name
+                      .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+                      .split("#$%")
+                      .map((el) => (
+                        <div key={uuidv4()} isMatched={props.keyword === el}>
+                          {el}
+                        </div>
+                      ))} */}
+                    {el.name}
+                  </S.Name>
+                  <S.Remarks>{el.remarks}</S.Remarks>
+                  <S.Tags>{el.tags}</S.Tags>
+                  <S.SellerCountWrapper>
+                    <img
+                      src="/writerPhoto.png"
+                      style={{ width: 20, height: 20 }}
+                    />
+                    <S.Seller>{el.seller?.name}</S.Seller>
+                    <img src="/pick.png" style={{ width: 20, height: 18.5 }} />
+                    <div>{el.pickedCount}</div>
+                  </S.SellerCountWrapper>
+                </S.ListBody>
+                <S.PriceWrapper>
+                  <img src="/price.png" style={{ width: 18, height: 18 }} />
+                  <S.Price onClick={props.onClickItem}>{el.price}원</S.Price>
+                </S.PriceWrapper>
+              </S.List>
+            ))}
+          </InfiniteScroll>
+        </S.ListWrapper>
+      </S.Right>
     </S.Wrapper>
   );
 }

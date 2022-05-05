@@ -1,12 +1,13 @@
 import { useMutation, useQuery } from "@apollo/client";
-// import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { MouseEvent, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "../../../commons/store";
 import { useAuth } from "../../commons/hooks/useAuth";
 import MypageUI from "./mypage.presenter";
 import {
   CREATE_POINT_TRANSACTION_OF_LOADING,
+  FETCH_USED_ITEMS_I_PICKED,
   // FETCH_POINT_TRANSACTIONS_OF_LOADING,
   FETCH_USER_LOGGEDIN,
 } from "./mypage.queries";
@@ -18,15 +19,23 @@ declare const window: typeof globalThis & {
 function Mypage() {
   useAuth();
   const [userInfo] = useRecoilState(userInfoState);
-
-  // const router = useRouter();
+  const router = useRouter();
   const [createPointTransactionOfLoading] = useMutation(
     CREATE_POINT_TRANSACTION_OF_LOADING
   );
+  const { data } = useQuery(FETCH_USER_LOGGEDIN);
+  // const { data } = useQuery(FETCH_POINT_TRANSACTIONS_OF_LOADING);
+  const { data: pickedData, fetchMore } = useQuery(FETCH_USED_ITEMS_I_PICKED, {
+    variables: { search: "", page: 1 },
+  });
   const [amount, setAmount] = useState(0); //amount뿐만아니라 아래의 다른 항목들도 state로 넣기 가능
+
+  // console.log(data);
+
   const onChangeCreatePointAmount = (event) => {
     setAmount(event.target.value);
   };
+
   const onClickCreatePoint = () => {
     //📌STEP2.결제 준비하기
     const IMP = window.IMP; // 생략 가능
@@ -75,8 +84,35 @@ function Mypage() {
     );
   };
 
-  // const { data } = useQuery(FETCH_POINT_TRANSACTIONS_OF_LOADING);
-  const { data } = useQuery(FETCH_USER_LOGGEDIN);
+  const loadMore = () => {
+    // 1.fetchUseditemsIPicked없으면, More로직 중단
+    if (!pickedData) return;
+    // 2.더 조회하기
+    fetchMore({
+      // 상품 전체갯수를 10(한page당 글 수)로 나누고, 올리고, +1(소숫점아래 포함 위해)
+      variables: {
+        page: Math.ceil(pickedData.fetchUseditemsIPicked.length / 10) + 1,
+      },
+      // rev(fetchUseditems의 useQuery)를 수정 -> 2가지 케이스
+      updateQuery: (prev, { fetchMoreResult }) => {
+        // 2-(1)더조회할 상품 없으면->기존 상품 보여주기
+        if (!fetchMoreResult?.fetchUseditemsIPicked)
+          return { fetchUseditemsIPicked: [...prev.fetchUseditemsIPicked] };
+        // 2-(2)더조회할 상품 있으면->기존 상품+더조회 결과
+        return {
+          fetchUseditemsIPicked: [
+            ...prev.fetchUseditemsIPicked,
+            ...fetchMoreResult.fetchUseditemsIPicked,
+          ],
+        };
+      },
+    });
+  };
+
+  const onClickItem = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target instanceof Element)
+      router.push(`/products/${event.target.id}`);
+  };
 
   return (
     <MypageUI
@@ -84,6 +120,9 @@ function Mypage() {
       onChangeCreatePointAmount={onChangeCreatePointAmount}
       onClickCreatePoint={onClickCreatePoint}
       data={data}
+      pickedData={pickedData}
+      loadMore={loadMore}
+      onClickItem={onClickItem}
     />
   );
 }

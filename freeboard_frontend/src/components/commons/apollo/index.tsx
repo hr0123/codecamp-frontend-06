@@ -16,10 +16,14 @@ export default function ApolloConfig(props) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}"); //문자열을 다시 객체로, 없으면 빈객체라도
-    setAccessToken(accessToken || ""); //my..Token없으면 초기값인 빈문자열 넣기
-    setUserInfo(userInfo);
+    // const accessToken = localStorage.getItem("accessToken");
+    // const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}"); //문자열을 다시 객체로, 없으면 빈객체라도
+    // setAccessToken(accessToken || ""); //my..Token없으면 초기값인 빈문자열 넣기
+    // setUserInfo(userInfo);
+    // 📌RefreshToken 실습_accessToken재발급받아서 state에 넣어주기
+    GetAccessToken().then((newAccessToken) => {
+      setAccessToken(newAccessToken);
+    });
   }, []);
 
   // 📌RefreshToken 실습_{에러, 방금실패했던 쿼리, 실행 명령어} / 콜백함수

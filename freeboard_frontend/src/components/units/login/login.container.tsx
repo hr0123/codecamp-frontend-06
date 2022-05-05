@@ -58,7 +58,7 @@ export default function Login() {
     // 3.loginUser로 받아온 토큰(1)과, fetchUserLoggedIn로받아온 유저정보(2)를->글로벌스테이트에 저장
     setAccessToken(accessToken);
     setUserInfo(userInfo);
-    localStorage.setItem("accessToken", accessToken);
+    // localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
     //↑객체는 로컬,세션스토리지에 저장 불가->객체를 문자열로 바꿔야 저장 가능
     // 4.로그인성공 페이지로 이동

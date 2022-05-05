@@ -164,7 +164,7 @@ export const TodayPick = styled.div`
   margin-left: 5px;
 `;
 export const TodayImage = styled.img`
-  margin: 0px 40px 12px 40px;
+  margin: 0px 40px 12px 36px;
 `;
 export const TodayName = styled.div`
   width: 127px;
