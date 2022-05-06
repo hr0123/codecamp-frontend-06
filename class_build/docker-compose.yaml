@@ -1,0 +1,9 @@
+# yaml파일=설정파일
+# Key, Value 형태로 작성
+version: "3.7"
+
+services:
+  my_frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
